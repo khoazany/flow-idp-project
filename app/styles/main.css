@@ -1,0 +1,148 @@
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.header > ul > li > a {
+  cursor: pointer;
+}
+
+.navbar-form.navbar-right {
+  color: white;
+  padding-right: 40px;
+}
+
+#btn-signup {
+  background-color: black;
+  color: white;
+}
+
+#btn-signup:hover {
+  background-color: grey;
+  color: white;
+}
+
+#main-content {
+  margin-top: 100px;
+}
+
+/* BS3 using input group icons from Font-Awesome 3.2.1 */
+
+/* no need for any margin/padding for headings when using WELL */
+.well h3 {
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+#signupForm .input-group {
+    margin-bottom: 20px;
+}
+
+/* get font-awesome to work with BS3 */
+.input-group-addon .icon-2x {
+    width: 28px;
+    min-width: 28px;
+    display: inline-block;
+}
+
+.inline-block > li {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px 10px 0;
+}
+
+/* Why doesn't OR work? Tested with Chrome 29, FF 24 or IE 11
+@media (max-width: 480px), (min-width: 1199px) { 
+    #social-sign-in .icon-5x {
+        font-size: 7em;
+    }
+}
+*/
+@media (max-width: 768px) {
+    #social-sign-in .icon-5x {
+        font-size: 7em;
+    }
+}
+@media (max-width: 480px) {
+    #social-sign-in .icon-5x {
+        font-size: 4.5em;
+    }
+}
+@media (min-width: 1199px) {
+    #social-sign-in .icon-5x {
+        font-size: 7em;
+    }
+}
+
