@@ -1,0 +1,147 @@
+<section class="container-fluid">
+  <ng-include src="header()"></ng-include>
+</section>
+
+<section class="container-fluid row" id="top-content">
+  <div class="col-sm-9">
+    <div class="row">
+      <div class="col-sm-4">
+        <select class="form-control">
+          <option ng-cloak ng-repeat="level in eduLevels" value="{{level}}">{{level}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <select class="form-control">
+          <option ng-cloak ng-repeat="mode in modes" value="{{mode}}">{{mode}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <form method="get" action="/search" id="search">
+          <input name="q" type="text" size="40" placeholder="Search..." />
+        </form>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="jumbotron"></div>
+    </div>
+
+    <div class="row" id="popular-item-list">
+      <div class="col-sm-12">
+        <legend>
+          POPULAR ITEMS
+          <!-- Standard button -->
+          <button type="button" class="btn btn-default popular-subject active">All</button>
+          <!-- Standard button -->
+          <button type="button" class="btn btn-default popular-subject">Biology</button>
+          <!-- Standard button -->
+          <button type="button" class="btn btn-default popular-subject">Chemistry</button>
+          <!-- Standard button -->
+          <button type="button" class="btn btn-default popular-subject">Math</button>
+        </legend>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="owl-demo" class="owl-carousel">
+        <div class="item">
+          <img class="lazyOwl" data-src="/images/owl1.jpg" alt="Lazy Owl Image">
+          <h6>Unit Name</h6>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
+        </div>
+        <div class="item"><img class="lazyOwl" data-src="/images/owl2.jpg" alt="Lazy Owl Image">
+          <h6>Unit Name</h6>
+          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+          <div class="item"><img class="lazyOwl" data-src="/images/owl3.jpg" alt="Lazy Owl Image">
+            <h6>Unit Name</h6>
+            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+            <div class="item"><img class="lazyOwl" data-src="/images/owl4.jpg" alt="Lazy Owl Image">
+              <h6>Unit Name</h6>
+              <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+              <div class="item"><img class="lazyOwl" data-src="/images/owl5.jpg" alt="Lazy Owl Image">
+                <h6>Unit Name</h6>
+                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+                <div class="item"><img class="lazyOwl" data-src="/images/owl6.jpg" alt="Lazy Owl Image">
+                  <h6>Unit Name</h6>
+                  <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+                  <div class="item"><img class="lazyOwl" data-src="/images/owl7.jpg" alt="Lazy Owl Image">
+                    <h6>Unit Name</h6>
+                    <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+                    <div class="item"><img class="lazyOwl" data-src="/images/owl8.jpg" alt="Lazy Owl Image">
+                      <h6>Unit Name</h6>
+                      <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+
+                    </div>
+                  </div>
+                  <div class="row" id="current-studying-header">
+                    <div class="col-sm-12">
+                      <legend>
+                        CURRENLY STUDYING SUBJECTS
+                      </legend>
+                    </div>
+                  </div>
+                  <div class="row" id="current-studying">
+                    <div class="col-md-6">
+                      <div class="blockquote-box clearfix">
+                        <div class="square pull-left">
+                          <img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />
+                        </div>
+                        <h4>
+                          Biology</h4>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+                            ante.
+                          </p>
+                        </div>
+                        <div class="blockquote-box blockquote-primary clearfix">
+                          <div class="square pull-left">
+                            <span class="glyphicon glyphicon-tint glyphicon-lg"></span>
+                          </div>
+                          <h4>
+                            Chemistry</h4>
+                            <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+                              ante.
+                            </p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="blockquote-box blockquote-info clearfix">
+                            <div class="square pull-left">
+                              <span class="glyphicon glyphicon-plus-sign glyphicon-lg"></span>
+                            </div>
+                            <h4>
+                              Math</h4>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+                                ante.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3" id="right-sidebar">
+                        <div class="row" id="recommended-items-header">
+                    <div class="col-sm-12">
+                      <legend>
+                        RECOMMENDED ITEMS
+                      </legend>
+                    </div>
+                  </div>
+                        <!--
+                        <div>
+                          <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
+                        </div>
+                        -->
+
+                        <div infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+                          <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
+                        </div>
+                      </div><!-- end of column 2 -->
+                    </section>
+
+                    <section class="container-fluid" id="bottom-section">
+                      <ng-include src="footer()"></ng-include>
+                    </section>
+

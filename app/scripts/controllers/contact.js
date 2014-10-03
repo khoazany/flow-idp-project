@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpApp')
-.controller('MainCtrl', function ($scope,$rootScope) {
+.controller('ContactCtrl', function ($scope,$rootScope) {
 
   $scope.loggedIn = function() {
     return $rootScope.loggedInStatus;

@@ -1,0 +1,95 @@
+#search {
+
+}
+
+#search input[type="text"] {
+    background: url(search-white.png) no-repeat 10px 6px #fcfcfc;
+    border: 1px solid #d1d1d1;
+    font: bold Arial,Helvetica,Sans-serif;
+    color: #bebebe;
+    width: 80%;
+    height: 34px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    }
+
+#search input[type="text"]:focus {
+    width: 100%;
+    }
+
+#top-content {
+    padding: 50px;
+}
+
+#top-content > div >.row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#top-content > div >.row > .jumbotron {
+    height: 200px;
+    margin-bottom: 0px;
+}
+
+/* Carousel */
+#owl-demo .item{
+  margin: 3px;
+}
+#owl-demo .item img{
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+#owl-demo .item > h6{
+  text-align: center;
+}
+
+#owl-demo .item > p{
+  text-align: center;
+  font-size: 10pt;
+}
+
+#current-studying-header legend,
+#recommended-items-header legend,
+#popular-item-list legend{
+  font-weight: 700;
+}
+
+#current-studying p{
+  font-size: 10pt;
+}
+
+#right-sidebar {
+    padding-left: 50px;
+}
+
+#right-sidebar:hover{
+   overflow-y: scroll;
+}
+
+.popular-subject {
+    margin-bottom: 5px;
+}
+
+.glyphicon-lg{font-size:3em}
+.blockquote-box{border-right:5px solid #E6E6E6;margin-bottom:25px}
+.blockquote-box .square{width:100px;min-height:50px;margin-right:22px;text-align:center!important;background-color:#E6E6E6;padding:20px 0}
+.blockquote-box.blockquote-primary{border-color:#357EBD}
+.blockquote-box.blockquote-primary .square{background-color:#428BCA;color:#FFF}
+.blockquote-box.blockquote-success{border-color:#4CAE4C}
+.blockquote-box.blockquote-success .square{background-color:#5CB85C;color:#FFF}
+.blockquote-box.blockquote-info{border-color:#46B8DA}
+.blockquote-box.blockquote-info .square{background-color:#5BC0DE;color:#FFF}
+.blockquote-box.blockquote-warning{border-color:#EEA236}
+.blockquote-box.blockquote-warning .square{background-color:#F0AD4E;color:#FFF}
+.blockquote-box.blockquote-danger{border-color:#D43F3A}
+.blockquote-box.blockquote-danger .square{background-color:#D9534F;color:#FFF}
