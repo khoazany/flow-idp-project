@@ -34,12 +34,16 @@ angular.module('idpApp')
     }
   };
 
+  $scope.showModal = false;
+
   $(document).ready(function() {
 
-    $("#owl-demo").owlCarousel({
-      items : 4,
-      lazyLoad : true,
-      navigation : true
+    $(".owl-carousel").each(function () {
+      $(this).owlCarousel({
+        items : 4,
+        lazyLoad : true,
+        navigation : true
+      });
     });
 
     // Instance the tour
@@ -65,7 +69,13 @@ angular.module('idpApp')
 tour.init();
 
 // Start the tour
-tour.start(); 
+//tour.start(); 
+
+$('.progresslabel').each(function(){
+    if($(this).width() > $(this).parent().width()){
+     $(this).css("color","black");   
+    }
+});
 
 });
 

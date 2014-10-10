@@ -6,7 +6,8 @@ angular.module('idpApp', [
   'ngSanitize',
   'ngRoute',
   'fitVids',
-  'infinite-scroll'
+  'infinite-scroll',
+  'ngStorage'
   ])
 .config(function ($routeProvider) {
   $routeProvider
@@ -41,4 +42,15 @@ angular.module('idpApp', [
   $rootScope.modes = [
   'Public Mode',
   'Private Mode'];
-});
+})
+.directive('akModal', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            scope.$watch(attrs.akModal, function(value) {
+                if (value) element.modal('show');
+                else element.modal('hide');
+            });
+        }
+    };
+});;
