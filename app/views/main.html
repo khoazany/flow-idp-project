@@ -2,6 +2,13 @@
   <ng-include src="header()"></ng-include>
 </section>
 
+<section id="alert">
+  <div class="alert" ng-class="'alert-' + message.status" ng-if="message.content != ''">  
+    <a class="close" ng-click="resetMessage()">×</a>  
+    {{message.content}} 
+  </div> 
+</section>
+
 <section class="container-fluid row" id="main-content">
   <div class="col-sm-5">
     <div class="row">

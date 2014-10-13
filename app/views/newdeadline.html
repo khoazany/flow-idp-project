@@ -1,0 +1,41 @@
+<div class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Select the date of your deadline and the topics to be covered during that test</p>
+
+        <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="formSubmit.required" validator="[requiredSubmit]" class="form-control" id="name" placeholder="Required" ng-model="deadline.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Date</label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="date" ng-model="deadline.date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="age" class="col-sm-2 control-label">Topics</label>
+            <div class="col-sm-10">
+              <div class="container-fluid">
+                <multi-select ng-model="deadline.topics" available="topics" selected-label="Selected topics" available-label="Available topics" display-attr="name"></multi-select>
+              </div>     
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close('Yes')" class="btn btn-success" data-dismiss="modal">Proceed to Test Quiz</button>
+        <button type="button" ng-click="close('No')" class="btn" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

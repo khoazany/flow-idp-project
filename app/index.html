@@ -13,11 +13,14 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/css-toggle-switch/dist/toggle-switch.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/newdeadline.css">
     <!-- endbuild -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="styles/font-awesome.min.css">
@@ -65,6 +68,13 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-modal-service/dst/angular-modal-service.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-validator/dist/angular-validator.js"></script>
+    <script src="bower_components/angular-validator/dist/angular-validator-rules.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -72,10 +82,13 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/home.js"></script>
     <script src="scripts/controllers/contact.js"></script>
+    <script src="scripts/controllers/quiz.js"></script>
+    <script src="scripts/controllers/newdeadline.js"></script>
     <!-- endbuild -->
     <script src="scripts/owl.carousel.min.js"></script>
     <script src="scripts/bootstrap-tour.min.js"></script>
     <script src="scripts/angular.fitvids.js"></script>
     <script src="scripts/ng-infinite-scroll.min.js"></script>
+    <script src="scripts/angular-multi-select.min.js"></script>
 </body>
 </html>

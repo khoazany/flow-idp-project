@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('idpApp')
-.controller('HomeCtrl', function ($scope,$rootScope,ModalService) {
+.controller('QuizCtrl', function ($scope,$rootScope,$routeParams) {
+  console.log($routeParams.id);
 
   $scope.header = function() {
   	return "/views/header.html";
@@ -11,18 +12,8 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
-  $scope.images = ['Quiz 1','Quiz 2','Quiz 3','Quiz 4'];
-
-  $scope.loadMore = function() {
-    var last = $scope.images[$scope.images.length - 1];
-    for(var i = 1; i <= 8; i++) {
-      $scope.images.push(last + i);
-    }
-  };
-
   $(document).ready(function() {
 
-    // Initiate Carousel
     $(".owl-carousel").each(function () {
       $(this).owlCarousel({
         items : 4,
@@ -31,7 +22,6 @@ angular.module('idpApp')
       });
     });
 
-    // Change text color in progress label
     $('.progresslabel').each(function(){
     if($(this).width() > $(this).parent().width()){
      $(this).css("color","black");   

@@ -16,7 +16,7 @@
     </ul>
 
     <div class="navbar-form navbar-right container-fluid" role="search">
-      <form ng-if="loggedIn() == 0">
+      <form ng-if="$storage.loggedInStatus == 0">
         <div class="form-group">
           <input type="text" class="form-control" name="username" placeholder="Username">
           <input type="checkbox">Remember me
@@ -27,7 +27,7 @@
         </div>
         <button ng-click="flowIn()" class="btn btn-success" style="vertical-align: top;">Flow In</button>
       </form>
-      <div ng-if="loggedIn() == 1">
+      <div ng-if="$storage.loggedInStatus == 1">
         Welcome Tong Nhat Duong
         <button ng-click="flowOut()" class="btn btn-primary">Flow Out</button>
       </div>
