@@ -1,0 +1,4 @@
+/* Overwrite Bootstrap row margin-right */
+.row {
+	margin-right: 0px;
+}

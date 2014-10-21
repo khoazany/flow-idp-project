@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('idpApp')
-.controller('QuizCtrl', function ($scope,$rootScope,$routeParams) {
+.controller('SubjectCtrl', function ($scope,$rootScope,$routeParams) {
   console.log($routeParams.id);
-  $scope.quiz = $rootScope.quizzes[$routeParams.id];
 
   $scope.header = function() {
   	return "/views/header.html";

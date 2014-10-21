@@ -3,7 +3,7 @@
 </section>
 
 <section class="container-fluid row" id="top-content">
-  <div class="col-sm-2" id="sidebar-left" ng-if="quiz.type == 'normal'">
+  <div class="col-sm-2" id="sidebar-left">
     <div class="sidebar">
         <div class="mini-submenu">
           <span class="icon-bar"></span>
@@ -26,9 +26,9 @@
         </div>        
       </div>
   </div>
-  <div data-ng-class="quiz.type == 'normal' ? 'col-sm-10' : 'col-sm-12'">
+  <div class="col-sm-10">
     <div class="container-fluid">
-      <div class="row" ng-if="quiz.type == 'normal'">
+      <div class="row">
        <div class="col-sm-12">
          <div class="container-fluid">
           <div class="jumbotron"></div>
@@ -36,47 +36,16 @@
       </div>
     </div>
     <div class="row">
-      <div id="quiz-content" data-ng-class="quiz.type == 'normal' ? 'col-sm-8' : 'col-sm-11 col-sm-offset-1'">
+      <div id="quiz-content" class="col-sm-8">
         <div class="container-fluid" style="margin-top: 15px;">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title" data-ng-cloak>{{quiz.title}}</h1>
-            </div>
-            <div class="panel-body" id="quiz-panel">
-              <div class="row" data-ng-repeat-start="question in quiz.questions">
-                <div class="col-sm-12">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-                      <span class="label label-success question-no" data-ng-cloak>Q{{question.number}}</span>
-                      <p class="question-content" data-ng-cloak>{{question.question}}</p>
-                      <div class="radio" data-ng-repeat="answer in question.answers">
-                        <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-ng-cloak>
-                          {{answer}}
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row" data-ng-repeat-end ng-if="quiz.type == 'normal'">
-                <div class="col-sm-12">
-                  <a class="btn btn-default">Save</a>
-                  <a class="btn btn-primary">Hint!</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="panel-footer clearfix">
-              <div class="pull-right">
-                <a class="btn btn-default" ng-if="quiz.type == 'normal'">Save All Answers</a>
-                <a class="btn btn-primary">Submit</a>
-              </div>
+              <h1 class="panel-title" data-ng-cloak>Biology</h1>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-4" id="right-sidebar" ng-if="quiz.type == 'normal'">
+      <div class="col-sm-4" id="right-sidebar">
         <div class="row" id="recommended-items-header">
           <div class="col-sm-12">
             <legend>

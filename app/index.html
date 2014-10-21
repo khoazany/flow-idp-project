@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/newdeadline.css">
+    <link rel="stylesheet" href="styles/quiz.css">
+
     <!-- endbuild -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="styles/font-awesome.min.css">
@@ -28,11 +30,15 @@
     <link rel="stylesheet" href="styles/owl.carousel.css">
     <link rel="stylesheet" href="styles/owl.theme.css">
     <link rel="stylesheet" href="styles/owl.transitions.css">
-    <link rel="stylesheet" href="styles/responsive.css">
     <link rel="stylesheet" href="styles/custom.css">
+    <link rel="stylesheet" href="styles/responsive.css">
 
     <!-- Bootstrap Tour -->
     <link rel="stylesheet" href="styles/bootstrap-tour.min.css">
+
+    <!-- Chosen CSS and spinner -->
+    <link rel="stylesheet" href="bower_components/chosen_v1.2.0/chosen.css">
+    <link rel="stylesheet" href="bower_components/angular-chosen-localytics/chosen-spinner.css">
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -75,8 +81,12 @@
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="bower_components/angular-validator/dist/angular-validator.js"></script>
     <script src="bower_components/angular-validator/dist/angular-validator-rules.js"></script>
+    <script src="bower_components/angular-chosen-localytics/chosen.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+
+    <script src="bower_components/chosen_v1.2.0/chosen.jquery.js"></script>
+
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
@@ -84,6 +94,7 @@
     <script src="scripts/controllers/contact.js"></script>
     <script src="scripts/controllers/quiz.js"></script>
     <script src="scripts/controllers/newdeadline.js"></script>
+    <script src="scripts/controllers/subject.js"></script>
     <!-- endbuild -->
     <script src="scripts/owl.carousel.min.js"></script>
     <script src="scripts/bootstrap-tour.min.js"></script>

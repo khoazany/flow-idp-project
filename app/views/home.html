@@ -9,11 +9,12 @@
   </div> 
 </section>
 
-<section class="container-fluid row" id="top-content">
+<section class="container-fluid row" id="top-content" style="margin-left: 0px; margin-right: 0px;">
   <div class="col-sm-9">
     <div class="row">
       <div class="col-sm-4">
-        <select class="form-control">
+        <select class="form-control" ng-model="chosenLevel">
+          <option value = "">All</option>
           <option ng-cloak ng-repeat="level in eduLevels" value="{{level}}">{{level}}</option>
         </select>
       </div>
@@ -22,149 +23,156 @@
           <input type="checkbox">
           <span>
             <div style="font-weight: normal;">Study Mode</div>
-            <span ng-repeat="mode in modes">{{mode}}</span>
+            <span ng-click="changeStudyMode()" ng-repeat="mode in modes">{{mode}}</span>
           </span>
 
           <a class="btn btn-success"></a>
         </label>
       </div>
       <div class="col-sm-4">
+        <select class="chosen-select chosen-rtl" multiple
+        chosen
+        ng-model="studySubjects"
+        ng-options="s.name for s in knowledgeTree | filter: {'eduLevel' : chosenLevel}"
+        style="width:80%;"
+        data-placeholder="Select subjects to study"
+        no-results-text="'Not found'">
+        <option value=""></option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="jumbotron"></div>
+  </div>
+
+  <div class="row" id="important-item-list">
+    <div class="col-sm-12">
+      <legend class="search">
+        DEADLINE ITEMS
+        <!-- Standard button -->
+        <button type="button" class="btn btn-default popular-subject active">All</button>
+        <!-- Standard button -->
+        <button type="button" class="btn btn-default popular-subject">Biology</button>
+        <!-- Standard button -->
+        <button type="button" class="btn btn-default popular-subject">Chemistry</button>
+        <!-- Standard button -->
+        <button type="button" class="btn btn-default popular-subject">Math</button>
+        <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
+      </legend>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="owl-carousel">
+      <div class="item">
+        <img class="lazyOwl" data-src="/images/owl1.jpg" alt="Lazy Owl Image">
+        <h6>Unit Name</h6>
+        <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
       </div>
-
-    </div>
-
-    <div class="row">
-      <div class="jumbotron"></div>
-    </div>
-
-    <div class="row" id="important-item-list">
-      <div class="col-sm-12">
-        <legend class="search">
-          IMPORTANT ITEMS
-          <!-- Standard button -->
-          <button type="button" class="btn btn-default popular-subject active">All</button>
-          <!-- Standard button -->
-          <button type="button" class="btn btn-default popular-subject">Biology</button>
-          <!-- Standard button -->
-          <button type="button" class="btn btn-default popular-subject">Chemistry</button>
-          <!-- Standard button -->
-          <button type="button" class="btn btn-default popular-subject">Math</button>
-          <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
-        </legend>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="owl-carousel">
-        <div class="item">
-          <img class="lazyOwl" data-src="/images/owl1.jpg" alt="Lazy Owl Image">
-          <h6>Unit Name</h6>
-          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
-        </div>
-        <div class="item"><img class="lazyOwl" data-src="/images/owl2.jpg" alt="Lazy Owl Image">
+      <div class="item"><img class="lazyOwl" data-src="/images/owl2.jpg" alt="Lazy Owl Image">
+        <h6>Unit Name</h6>
+        <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
+        <div class="item"><img class="lazyOwl" data-src="/images/owl3.jpg" alt="Lazy Owl Image">
           <h6>Unit Name</h6>
           <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-          <div class="item"><img class="lazyOwl" data-src="/images/owl3.jpg" alt="Lazy Owl Image">
+          <div class="item"><img class="lazyOwl" data-src="/images/owl4.jpg" alt="Lazy Owl Image">
             <h6>Unit Name</h6>
             <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-            <div class="item"><img class="lazyOwl" data-src="/images/owl4.jpg" alt="Lazy Owl Image">
+            <div class="item"><img class="lazyOwl" data-src="/images/owl5.jpg" alt="Lazy Owl Image">
               <h6>Unit Name</h6>
               <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-              <div class="item"><img class="lazyOwl" data-src="/images/owl5.jpg" alt="Lazy Owl Image">
+              <div class="item"><img class="lazyOwl" data-src="/images/owl6.jpg" alt="Lazy Owl Image">
                 <h6>Unit Name</h6>
                 <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                <div class="item"><img class="lazyOwl" data-src="/images/owl6.jpg" alt="Lazy Owl Image">
+                <div class="item"><img class="lazyOwl" data-src="/images/owl7.jpg" alt="Lazy Owl Image">
                   <h6>Unit Name</h6>
                   <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                  <div class="item"><img class="lazyOwl" data-src="/images/owl7.jpg" alt="Lazy Owl Image">
+                  <div class="item"><img class="lazyOwl" data-src="/images/owl8.jpg" alt="Lazy Owl Image">
                     <h6>Unit Name</h6>
                     <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                    <div class="item"><img class="lazyOwl" data-src="/images/owl8.jpg" alt="Lazy Owl Image">
+
+                  </div>
+                </div>
+
+                <div class="row" id="regular-item-list">
+                  <div class="col-sm-12">
+                    <legend class="search">
+                      REGULAR ITEMS
+                      <!-- Standard button -->
+                      <button type="button" class="btn btn-default popular-subject active">All</button>
+                      <!-- Standard button -->
+                      <button type="button" class="btn btn-default popular-subject">Biology</button>
+                      <!-- Standard button -->
+                      <button type="button" class="btn btn-default popular-subject">Chemistry</button>
+                      <!-- Standard button -->
+                      <button type="button" class="btn btn-default popular-subject">Math</button>
+                      <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
+                    </legend>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="owl-carousel">
+                    <div class="item">
+                      <img class="lazyOwl" data-src="/images/owl1.jpg" alt="Lazy Owl Image">
+                      <h6>Unit Name</h6>
+                      <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
+                    </div>
+                    <div class="item"><img class="lazyOwl" data-src="/images/owl2.jpg" alt="Lazy Owl Image">
                       <h6>Unit Name</h6>
                       <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-
-                    </div>
-                  </div>
-
-                  <div class="row" id="regular-item-list">
-                    <div class="col-sm-12">
-                      <legend>
-                        <legend class="search">
-                          REGULAR ITEMS
-                          <!-- Standard button -->
-                          <button type="button" class="btn btn-default popular-subject active">All</button>
-                          <!-- Standard button -->
-                          <button type="button" class="btn btn-default popular-subject">Biology</button>
-                          <!-- Standard button -->
-                          <button type="button" class="btn btn-default popular-subject">Chemistry</button>
-                          <!-- Standard button -->
-                          <button type="button" class="btn btn-default popular-subject">Math</button>
-                          <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
-                        </legend>
-                      </legend>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="owl-carousel">
-                      <div class="item">
-                        <img class="lazyOwl" data-src="/images/owl1.jpg" alt="Lazy Owl Image">
-                        <h6>Unit Name</h6>
-                        <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
-                      </div>
-                      <div class="item"><img class="lazyOwl" data-src="/images/owl2.jpg" alt="Lazy Owl Image">
+                      <div class="item"><img class="lazyOwl" data-src="/images/owl3.jpg" alt="Lazy Owl Image">
                         <h6>Unit Name</h6>
                         <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                        <div class="item"><img class="lazyOwl" data-src="/images/owl3.jpg" alt="Lazy Owl Image">
+                        <div class="item"><img class="lazyOwl" data-src="/images/owl4.jpg" alt="Lazy Owl Image">
                           <h6>Unit Name</h6>
                           <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                          <div class="item"><img class="lazyOwl" data-src="/images/owl4.jpg" alt="Lazy Owl Image">
+                          <div class="item"><img class="lazyOwl" data-src="/images/owl5.jpg" alt="Lazy Owl Image">
                             <h6>Unit Name</h6>
                             <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                            <div class="item"><img class="lazyOwl" data-src="/images/owl5.jpg" alt="Lazy Owl Image">
+                            <div class="item"><img class="lazyOwl" data-src="/images/owl6.jpg" alt="Lazy Owl Image">
                               <h6>Unit Name</h6>
                               <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                              <div class="item"><img class="lazyOwl" data-src="/images/owl6.jpg" alt="Lazy Owl Image">
+                              <div class="item"><img class="lazyOwl" data-src="/images/owl7.jpg" alt="Lazy Owl Image">
                                 <h6>Unit Name</h6>
                                 <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                                <div class="item"><img class="lazyOwl" data-src="/images/owl7.jpg" alt="Lazy Owl Image">
+                                <div class="item"><img class="lazyOwl" data-src="/images/owl8.jpg" alt="Lazy Owl Image">
                                   <h6>Unit Name</h6>
                                   <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                                  <div class="item"><img class="lazyOwl" data-src="/images/owl8.jpg" alt="Lazy Owl Image">
-                                    <h6>Unit Name</h6>
-                                    <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
 
+                                </div>
+                              </div>
+                              <div class="row" id="current-studying-header">
+                                <div class="col-sm-12">
+                                  <legend>
+                                    CURRENLY STUDYING SUBJECTS
+                                  </legend>
+                                </div>
+                              </div>
+                              <div class="row" id="current-studying">
+                                <div class="col-sm-12">
+                                  <div ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" class="blockquote-box clearfix">
+                                    <div class="square pull-left" ng-bind-html="subject.representingBox">
+                                    </div>
+                                    <h4>
+                                      {{subject.name}}</h4>
+                                      <p>
+                                        {{subject.description}}
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="row" id="current-studying-header">
+                              </div>
+                              <div class="col-sm-3" id="right-sidebar">
+                                <div class="row" id="recommended-items-header">
                                   <div class="col-sm-12">
                                     <legend>
-                                      CURRENLY STUDYING SUBJECTS
+                                      DEADLINES <div class="btn btn-info" ng-click="showAModal()">Add <span class="glyphicon glyphicon-plus"></span></div>
                                     </legend>
                                   </div>
                                 </div>
-                                <div class="row" id="current-studying">
-                                  <div class="col-sm-12">
-                                  <div ng-repeat="subject in knowledgeTree" class="blockquote-box clearfix">
-                                      <div class="square pull-left" ng-bind-html="subject.representingBox">
-                                      </div>
-                                      <h4>
-                                        {{subject.name}}</h4>
-                                        <p>
-                                          {{subject.description}}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-3" id="right-sidebar">
-                                  <div class="row" id="recommended-items-header">
-                                    <div class="col-sm-12">
-                                      <legend>
-                                        DEADLINES <div class="btn btn-info" ng-click="showAModal()">Add <span class="glyphicon glyphicon-plus"></span></div>
-                                      </legend>
-                                    </div>
-                                  </div>
                         <!--
                         <div>
                           <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
