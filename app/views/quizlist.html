@@ -50,7 +50,7 @@
         <div class="container-fluid" style="margin-top: 15px;">
           <div class="panel panel-default">
             <div class="panel-heading">
-            <h1 class="panel-title" data-ng-bind="subject.name" data-ng-cloak> </h1> 
+              <h1 class="panel-title" data-ng-bind="subject.name + ' Quizzes'" data-ng-cloak> </h1> 
             </div>
             <div class="panel-body" id="quiz-panel">
               <legend>DESCRIPTION</legend>
@@ -62,13 +62,31 @@
                     <ul class="nav nav-list tree">
                       <li data-ng-repeat="subTopic in topic.subTopics"><label class="tree-toggler nav-header" ng-bind="getSubTopicBySubTopicId(subTopic.id).name"></label>
                         <ul class="nav nav-list tree">
-                          <li><a data-ng-href="#/subtopic/{{subTopic.id}}">Slide</a></li>
-                          <li><a data-ng-href="#/quiz/{{getQuizBySubTopicId(subTopic.id).id}}">Quiz</a></li>
+                          <li>
+                            <div class="col-sm-8">
+                              <a data-ng-href="#/quiz/{{getQuizBySubTopicId(subTopic.id).id}}">
+                                {{getQuizBySubTopicId(subTopic.id).title}}
+                              </a>
+                            </div>
+                            <div class="col-sm-2">{{getQuizBySubTopicId(subTopic.id).score}}
+                            </div>
+                            <div class="col-sm-2 progress-outer">
+                              <div class='progress'>
+                                <div class='hide'></div>
+                                <div class='active'></div>
+                                <div class='active2'></div>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                          </li>
                         </ul>
                       </li>
                     </ul>
                   </li>
                   <li class="divider" data-ng-repeat-end></li>
+                  <li>
+                  </li>
                 </ul>
               </div>
             </div>

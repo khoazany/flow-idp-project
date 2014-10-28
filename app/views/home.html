@@ -51,14 +51,9 @@
     <div class="col-sm-12">
       <legend class="search">
         DEADLINE ITEMS
-        <!-- Standard button -->
         <button type="button" class="btn btn-default popular-subject active">All</button>
         <!-- Standard button -->
-        <button type="button" class="btn btn-default popular-subject">Biology</button>
-        <!-- Standard button -->
-        <button type="button" class="btn btn-default popular-subject">Chemistry</button>
-        <!-- Standard button -->
-        <button type="button" class="btn btn-default popular-subject">Math</button>
+        <button type="button" class="btn btn-default popular-subject" ng-animate="'repeated-item'" data-ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" data-ng-cloak>{{subject.name}}</button>
         <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
       </legend>
     </div>
@@ -100,14 +95,9 @@
                   <div class="col-sm-12">
                     <legend class="search">
                       REGULAR ITEMS
-                      <!-- Standard button -->
                       <button type="button" class="btn btn-default popular-subject active">All</button>
                       <!-- Standard button -->
-                      <button type="button" class="btn btn-default popular-subject">Biology</button>
-                      <!-- Standard button -->
-                      <button type="button" class="btn btn-default popular-subject">Chemistry</button>
-                      <!-- Standard button -->
-                      <button type="button" class="btn btn-default popular-subject">Math</button>
+                      <button type="button" class="btn btn-default popular-subject" data-ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" data-ng-cloak>{{subject.name}}</button>
                       <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
                     </legend>
                   </div>

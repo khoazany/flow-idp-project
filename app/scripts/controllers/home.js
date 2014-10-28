@@ -13,13 +13,6 @@ angular.module('idpApp')
 
   $scope.images = ['Quiz 1','Quiz 2','Quiz 3','Quiz 4'];
 
-  $scope.loadMore = function() {
-    var last = $scope.images[$scope.images.length - 1];
-    for(var i = 1; i <= 8; i++) {
-      $scope.images.push(last + i);
-    }
-  };
-
   $(document).ready(function() {
 
     // Initiate Carousel

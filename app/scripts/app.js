@@ -13,7 +13,9 @@ angular.module('idpApp', [
   'angularMoment',
   'validator',
   'validator.rules',
-  'localytics.directives'
+  'localytics.directives',
+  'pdf',
+  'angular.directives-round-progress'
   ])
 .constant('angularMomentConfig', {
 })
@@ -38,6 +40,14 @@ angular.module('idpApp', [
   .when('/subject/:id', {
     templateUrl: 'views/subject.html',
     controller: 'SubjectCtrl'
+  })
+  .when('/subject/:id/quizzes', {
+    templateUrl: 'views/quizlist.html',
+    controller: 'SubjectCtrl'
+  })
+  .when('/subtopic/:id', {
+    templateUrl: 'views/subtopic.html',
+    controller: 'SubtopicCtrl'
   })
   .otherwise({
     redirectTo: '/'
@@ -98,38 +108,99 @@ $rootScope.changeStudyMode = function () {
 };
 
 $rootScope.knowledgeTree = [
-{'id' : 1,
+{'id' : 0,
 'name' : 'Biology',
 'eduLevel' : 'Secondary',
 'description' : 'Biology Description',
 'representingBox' : '<img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />',
 'studying' : true,
 'topics' : [
-{'id' : 1,
-'name' : 'Animals',
-'description' : 'Description of Animals',
+{'id' : 0,
+'name' : 'Cell Structure',
+'description' : 'Cell Structure Description',
 'status' : 0,
 'total' : 10,
 'completed': 5,
-'subTopics' : []
+'subTopics' : [
+{'id' : 0,
+'quiz' : {
+  'id' : 0
+}
 },
-{'id' : 2,
-'name' : 'Reproduction',
-'description' : 'Description of Reproduction',
+{'id' : 1,
+'quiz' : {
+  'id' : 0
+}
+}
+]
+},
+{'id' : 1,
+'name' : 'Plasma Membrane',
+'description' : 'Plasma Membrane Description',
 'status' : 0,
 'total' : 10,
 'completed': 8,
-'subTopics' : []
+'subTopics' : [
+{'id' : 2,
+'quiz' : {
+  'id' : 0
+}
+},
+{'id' : 3,
+'quiz' : {
+  'id' : 0
+}
+}
+]
 }
 ]},
-{'id' : 2,
+{'id' : 1,
 'name' : 'Chemistry',
 'eduLevel' : 'Secondary',
 'description' : 'Chemistry Description',
 'representingBox' : '<span class="glyphicon glyphicon-tint glyphicon-lg"></span>',
 'studying' : true,
-'topics' : []},
+'topics' : [
+{'id' : 2,
+'name' : 'Atom',
+'description' : 'Atom Description',
+'status' : 0,
+'total' : 10,
+'completed': 5,
+'subTopics' : [
+{'id' : 4,
+'quiz' : {
+  'id' : 0
+}
+},
+{'id' : 5,
+'quiz' : {
+  'id' : 0
+}
+}
+]
+},
 {'id' : 3,
+'name' : 'Acid and Bases',
+'description' : 'Acid and Bases Description',
+'status' : 0,
+'total' : 10,
+'completed': 8,
+'subTopics' : [
+{'id' : 6,
+'quiz' : {
+  'id' : 0
+}
+},
+{'id' : 7,
+'quiz' : {
+  'id' : 0
+}
+}
+]
+}
+]},
+{'id' : 2,
 'name' : 'Math',
 'eduLevel' : 'JC',
 'description' : 'Math Description',
@@ -158,60 +229,192 @@ $rootScope.topics = [
 ];
 
 $rootScope.quizzes = [
+{
+  'id' : 0,
+  'type' : 'diagnostic',
+  'title' : 'Diagnostic Quiz',
+  'subject' : {
+    'name' : 'ADD NEW DEADLINE',
+    'id' : ''
+  },
+  'subTopic' : {
+    'id' : ''
+  },
+  'questions' : [
   {
-    'id' : 0,
-    'type' : 'diagnostic',
-    'title' : 'Diagnostic Quiz',
-    'questions' : [
-      {
-        'question' : 'Question 1',
-        'number': '1',
-        'answers' : [
-          'Choice 1',
-          'Choice 2',
-          'Choice 3',
-          'Choice 4'
-        ]
-      },
-      {
-        'question' : 'Question 2',
-        'number': '2',
-        'answers' : [
-          'Choice 1',
-          'Choice 2',
-          'Choice 3',
-          'Choice 4'
-        ]
-      }
-    ]
-  }, 
+    'question' : 'Question 1',
+    'number': '1',
+    'answers' : [
+    'Choice 1',
+    'Choice 2',
+    'Choice 3',
+    'Choice 4'
+    ],
+    'selected' : ''
+  },
   {
-    'id' : 1,
-    'type' : 'normal',
-    'title' : 'Quiz Title',
-    'questions' : [
-      {
-        'question' : 'Question 1',
-        'number': '1',
-        'answers' : [
-          'Choice 1',
-          'Choice 2',
-          'Choice 3',
-          'Choice 4'
-        ]
-      },
-      {
-        'question' : 'Question 2',
-        'number': '2',
-        'answers' : [
-          'Choice 1',
-          'Choice 2',
-          'Choice 3',
-          'Choice 4'
-        ]
-      }
-    ]
+    'question' : 'Question 2',
+    'number': '2',
+    'answers' : [
+    'Choice 1',
+    'Choice 2',
+    'Choice 3',
+    'Choice 4'
+    ],
+    'selected' : ''
   }
+  ]
+}, 
+{
+  'id' : 1,
+  'type' : 'normal',
+  'title' : 'Eukaryotic Quiz',
+  'subject' : {
+    'id' : '0'
+  },
+  'subTopic' : {
+    'id' : '0'
+  },
+  'saved' : false,
+  'submitted' : false,
+  'score' : 0,
+  'questions' : [
+  {
+    'question' : 'Which of the following is found both in eukaryotic and prokaryotic cells?',
+    'number': '1',
+    'answers' : [
+    'nucleus',
+    'ribosomes',
+    'vacuoles',
+    'mitochondrion'
+    ],
+    'selected' : '',
+    'saved' : false,
+    'hinted' : false,
+    'hint' : 'Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.',
+    'subTopic' : {
+      'id' : 0
+    }
+  },
+  {
+    'question' : 'Eukaryotic cells contain the following:',
+    'number': '2',
+    'answers' : [
+    'All of these answers',
+    'Circular chromosomal structures within a membrane-bound nucleus',
+    'Structures that specialize in energy production',
+    'A nucleus that is not surrounded by a membrane'
+    ],
+    'selected' : '',
+    'saved' : false,
+    'hinted' : false,
+    'hint' : 'Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.',
+    'subTopic' : {
+      'id' : 0
+    }
+  },
+  {
+    'question' : 'If the nucleolus were not able to carry out its function, which nucleus-synthesized organelles would be affected?',
+    'number': '3',
+    'answers' : [
+    'Ribosomes',
+    'Chromosomes',
+    'DNA',
+    'Proteins'
+    ],
+    'selected' : '',
+    'saved' : false,
+    'hinted' : false,
+    'hint' : 'Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.',
+    'subTopic' : {
+      'id' : 0
+    }
+  }
+  ]
+}
+];
+
+$rootScope.subTopicList = [
+{'id' : 0,
+'name' : 'Prokaryotic Cells',
+'pdfLink' : '/slides/bio1.pdf',
+'subject' : {
+  'id': 0
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 1,
+'name' : 'Eukaryotic Cells',
+'pdfLink' : '/slides/bio2.pdf',
+'subject' : {
+  'id': 0
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 2,
+'name' : 'Active Transport',
+'pdfLink' : '/slides/bio3.pdf',
+'subject' : {
+  'id': 0
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 3,
+'name' : 'Fluid Mosaic Model',
+'pdfLink' : '/slides/bio4.pdf',
+'subject' : {
+  'id': 0
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 4,
+'name' : 'History of Atomic Structure',
+'pdfLink' : '/slides/chem1.pdf',
+'subject' : {
+  'id': 1
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 5,
+'name' : 'The Structure of The Atom',
+'pdfLink' : '/slides/chem2.pdf',
+'subject' : {
+  'id': 1
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 6,
+'name' : 'Strength of Acids',
+'pdfLink' : '/slides/chem3.pdf',
+'subject' : {
+  'id': 1
+},
+'quiz' : {
+  'id' : 1
+}
+},
+{'id' : 7,
+'name' : 'The pH Scale',
+'pdfLink' : '/slides/chem4.pdf',
+'subject' : {
+  'id': 1
+},
+'quiz' : {
+  'id' : 1
+}
+}
 ];
 
 $rootScope.studySubjects = [];
@@ -283,6 +486,13 @@ $rootScope.month = function (date) {
       time: time
     };
   };
+
+  $(document).ready(function() {
+    /* Toggle Tree  when clicked */
+    $(document).on('click','label.tree-toggler', function () {
+      $(this).parent().children('ul.tree').toggle(300);
+    });
+  });
 
   return $validator.register('requiredRun', {
     invoke: 'watch',

@@ -1,22 +1,14 @@
 'use strict';
 
 angular.module('idpApp')
-.controller('QuizCtrl', function ($scope,$rootScope,$routeParams,$location) {
+.controller('SubtopicCtrl', function ($scope,$rootScope,$routeParams) {
 
-  $scope.id = $routeParams.id;
+  $scope.subTopic = $rootScope.subTopicList[$routeParams.id];
 
-  $scope.quiz = $rootScope.quizzes[$routeParams.id];
+  $scope.subject = $rootScope.knowledgeTree[$scope.subTopic.subject.id];
 
-  $scope.subTopic = '';
-
-  if($scope.quiz.type == 'normal') {
-    $scope.subTopic = $rootScope.subTopicList[$scope.quiz.subTopic.id];
-  }
-
-  $scope.subject = $rootScope.knowledgeTree[$scope.quiz.subject.id];
-
-  $scope.$watch('quiz', function () {
-    $rootScope.quizzes[$routeParams.id];
+  $scope.$watch('subTopic', function () {
+    $rootScope.subTopicList[$routeParams.id];
   });
 
   $scope.header = function() {
@@ -27,13 +19,7 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
-  $scope.goBack = function () {
-    if($scope.quiz.type == 'normal') {
-      return '#/subject/' + $scope.subject.id;
-    } else {
-      return '#/home';
-    }
-  };
+  $scope.pdfUrl = $scope.subTopic.pdfLink;
 
   $scope.numberOfSubTopics = function () {
     var count = 0;
@@ -44,25 +30,7 @@ angular.module('idpApp')
     }
     console.log(count);
     return count;
-  };
-
-  $scope.getSubTopic = function (id) {
-    return $rootScope.subTopicList[id].name;
-  };
-
-  $scope.submitQuiz = function () {
-    $scope.quiz.submitted = true;
-    $scope.quiz.score = 10;
-
-    /* Reset data for the particular quiz */
-    $scope.quiz.saved = false;
-    for(var i = 0;i < $scope.quiz.questions.length;i++) {
-      $scope.quiz.questions[i].saved = false;
-      $scope.quiz.questions[i].hinted = false;
-      $scope.quiz.questions[i].selected = '';
-    }
-    $location.path('/subject/' + $scope.subject.id + '/quizzes');
-  };
+  }
 
   $(document).ready(function() {
 

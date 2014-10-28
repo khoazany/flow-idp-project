@@ -18,7 +18,8 @@
     "angular-moment": "~0.8.2",
     "angular-validator": "~0.2.5",
     "angular-chosen-localytics": "~1.0.6",
-    "chosen_v1.2.0": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip"
+    "chosen_v1.2.0": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip",
+    "angular-pdf": "~0.3.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",

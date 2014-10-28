@@ -3,7 +3,8 @@
 </section>
 
 <section class="container-fluid row" id="top-content">
-  <div class="col-sm-2" id="sidebar-left" ng-if="quiz.type == 'normal'">
+  <div class="col-sm-2" id="sidebar-left">
+    <div class="container-fluid">
     <div class="sidebar">
         <div class="mini-submenu">
           <span class="icon-bar"></span>
@@ -12,38 +13,55 @@
         </div>
         <div class="list-group">
           <span href="#" class="list-group-item active">
-            <h5>Subject</h5>
+            <h5 data-ng-cloak>{{subject.name}}</h5>
           </span>
-          <a class="list-group-item">
-            <i class="fa fa-mortar-board"></i> Lectures <span class="badge">14</span>
+          <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}" data-ng-if="quiz.type == 'normal'">
+            <i class="fa fa-mortar-board"></i> Lectures <span class="badge" ng-model="numberOfSubTopics" data-ng-bind="numberOfSubTopics()"></span>
           </a>
-          <a class="list-group-item">
+          <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes" data-ng-if="quiz.type == 'normal'">
             <i class="fa fa-question"></i> Quizzes <span class="badge">14</span>
           </a>
-          <a href="/#/home" class="list-group-item">
-            <i class="fa fa-long-arrow-left"></i> Back to main page
+          <a class="list-group-item" data-ng-href="{{goBack()}}">
+            <i class="fa fa-long-arrow-left" data-ng-bind="quiz.type == 'normal' ? ' ' + subject.name : ' Main Page'"></i>
           </a>
         </div>        
       </div>
+      </div>
   </div>
-  <div data-ng-class="quiz.type == 'normal' ? 'col-sm-10' : 'col-sm-12'">
+  <div data-ng-class="quiz.type == 'normal' ? 'col-sm-10' : 'col-sm-10'">
     <div class="container-fluid">
-      <div class="row" ng-if="quiz.type == 'normal'">
+      <div class="row" data-ng-if="quiz.type == 'normal'">
        <div class="col-sm-12">
          <div class="container-fluid">
           <div class="jumbotron"></div>
         </div>
       </div>
     </div>
+    <div class="row" data-ng-style="{ 'margin-bottom' : quiz.type == 'normal' ? '0px' : '0px','margin-top' : quiz.type == 'normal' ? '15px' : '0px'}">
+      <div class="col-sm-12">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+              <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
+              <a data-ng-href="#/subject/{{subject.id}}" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div ng-bind="subject.name"></div></a>
+              <a href="#" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
+              <a data-ng-href="#/quiz/{{id}}" class="btn btn-default"><div>{{quiz.title}}</div></a>
+          </div>
+        </div>
+    </div>
     <div class="row">
-      <div id="quiz-content" data-ng-class="quiz.type == 'normal' ? 'col-sm-8' : 'col-sm-11 col-sm-offset-1'">
+      <div id="quiz-content" data-ng-class="quiz.type == 'normal' ? 'col-sm-8' : 'col-sm-12'">
         <div class="container-fluid" style="margin-top: 15px;">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title" data-ng-cloak>{{quiz.title}}</h1>
+              <h1 class="panel-title" data-ng-cloak>{{quiz.title}} </h1> 
+            </div>
+            <div class="warning" data-ng-if="quiz.type == 'diagnostic'">
+              <div class="alert alert-warning"><label class="label label-warning">Warning</label> If you close this page before submiting the quiz, your answers won't be taken and the system will take your current progress in the knowledge tree as the result!</div>
+            </div>
+            <div class="warning" data-ng-if="quiz.submitted == true">
+              <div class="alert alert-warning"><label class="label label-warning">Warning</label> You have already done this quiz.If you want to retry the score will be recomputed.</div>
             </div>
             <div class="panel-body" id="quiz-panel">
-              <div class="row" data-ng-repeat-start="question in quiz.questions">
+              <div class="row" data-ng-repeat-start="question in quiz.questions" ng-init="temp = quiz.questions[$parent.$index].selected">
                 <div class="col-sm-12">
                   <div class="panel panel-default">
                     <div class="panel-body">
@@ -51,7 +69,7 @@
                       <p class="question-content" data-ng-cloak>{{question.question}}</p>
                       <div class="radio" data-ng-repeat="answer in question.answers">
                         <label>
-                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-ng-cloak>
+                          <input type="radio" id="optionsRadios{{question.number}}" ng-model="question.selected" data-ng-value="answer" data-ng-cloak>
                           {{answer}}
                         </label>
                       </div>
@@ -59,18 +77,28 @@
                   </div>
                 </div>
               </div>
-              <div class="row" data-ng-repeat-end ng-if="quiz.type == 'normal'">
+              <div class="row" data-ng-if="quiz.type == 'normal'">
                 <div class="col-sm-12">
-                  <a class="btn btn-default">Save</a>
-                  <a class="btn btn-primary">Hint!</a>
+                  <a data-ng-class="question.saved? 'btn-inverse' : 'btn-default'" data-ng-click="question.saved = true" class="btn" data-ng-bind="question.saved? 'Saved' : 'Save'"></a>
+                  <a class="btn" data-ng-class="question.hinted? '' : 'btn-default'" data-ng-click="question.hinted = !question.hinted" data-ng-bind="question.hinted == false ? 'Show Hint' : 'Hide Hint'"></a>
+                </div>
+              </div>
+              <div class="row" data-ng-repeat-end data-ng-if="question.hinted == true">
+                <div class="col-sm-12">
+                  <div class="panel panel-default panel-hint">
+                    <div class="panel-body">
+                      <p>{{question.hint}}</p>
+                      <p>Related sub-topic: <a data-ng-href="#/subtopic/{{question.subTopic.id}}" ng-bind="getSubTopic(question.subTopic.id)"></a></p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="panel-footer clearfix">
               <div class="pull-right">
-                <a class="btn btn-default" ng-if="quiz.type == 'normal'">Save All Answers</a>
-                <a class="btn btn-primary">Submit</a>
+                <a class="btn" data-ng-class="quiz.saved? 'btn-inverse' : 'btn-default'" data-ng-click="quiz.saved = true" data-ng-if="quiz.type == 'normal'" data-ng-bind="quiz.saved? 'All Answer Saved!' : 'Save All Answer'"></a>
+                <a class="btn btn-success" data-ng-click="submitQuiz()">Submit</a>
               </div>
             </div>
           </div>

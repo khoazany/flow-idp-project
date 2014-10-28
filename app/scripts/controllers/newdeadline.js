@@ -31,7 +31,8 @@ angular.module('idpApp')
 			});
 		},
 		reset: function() {
-			return $validator.reset($scope, 'formWatch');
+			$scope.formWatch.name = '';
+			$scope.formWatch.date = '';
 		}
 	};
 
