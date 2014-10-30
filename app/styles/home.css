@@ -86,7 +86,7 @@
 }
 
 .progresslabel{    
-    min-width:40px;
+    min-width: 100px;
 }
 
 .glyphicon-lg{font-size:3em}
@@ -146,7 +146,7 @@
 }
 
 .progress {
-  height: 3em;
+  height: 2em;
 }
 .progress i {
   line-height: 3.5em;

@@ -45,6 +45,9 @@ angular.module('idpApp')
 
   $scope.done = function () {
     $scope.subTopic.status = 1;
+    for(var i = 0;i < $rootScope.deadlines.length;i++) {
+      $rootScope.deadlines[i].score = 50;
+    }
     $location.path('/subject/' + $scope.subject.id);
   }
 
@@ -159,22 +162,34 @@ $(document).ready(function() {
 
   for(var j = 0;j < $scope.subject.topics.length;j++) {
 
-    var temp2 = {
-      "name": $scope.subject.topics[j].name,
-      "parent": $scope.subject.name,
-      "children": []
-    };
-    for(var k = 0;k < $scope.subject.topics[j].subTopics.length;k++) {
-      var temp3 = {
-        "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
-        "parent" : $scope.subject.topics[j].name,
-        "idtemp" : $scope.subject.topics[j].subTopics[k].id
+      var temp2 = {
+        "name": $scope.subject.topics[j].name,
+        "parent": $scope.subject.name,
+        "children": []
+      };
+      for(var k = 0;k < $scope.subject.topics[j].subTopics.length;k++) {
+        var temp3 = {};
+        temp3 = {
+          "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
+          "parent" : $scope.subject.topics[j].name,
+          "type" : "subtopic",
+          "idtemp" : $scope.subject.topics[j].subTopics[k].id
+        }
+        if($rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status == 1) {
+          temp3.name = $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name + ' (Done)';
+        }
+        var temp4 = {
+          "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title + ' (' + $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].submitted + ')',
+          "parent" : $scope.subject.topics[j].name,
+          "type" : "quiz",
+          "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id
+        }
+        temp2.children.push(temp3);
+        temp2.children.push(temp4);
       }
-      temp2.children.push(temp3);
+      temp1.children.push(temp2);
     }
-    temp1.children.push(temp2);
-  }
-  treeData[0].children.push(temp1);
+    treeData[0].children.push(temp1);
 
 
 // ************** Generate the tree diagram  *****************

@@ -5,7 +5,7 @@
 <section class="container-fluid row" id="top-content">
   <div class="col-sm-2" id="sidebar-left">
     <div class="container-fluid">
-    <div class="sidebar">
+      <div class="sidebar">
         <div class="mini-submenu">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -18,7 +18,7 @@
           <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}" data-ng-if="quiz.type == 'normal'">
             <i class="fa fa-mortar-board"></i> Lectures <span class="badge" ng-model="numberOfSubTopics" data-ng-bind="numberOfSubTopics()"></span>
           </a>
-          <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes">
+          <a data-ng-if="quiz.type == 'normal'" class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes">
             <i class="fa fa-question"></i> Quizzes <span class="badge" data-ng-model="numberOfQuizzes" data-ng-bind="numberOfQuizzes()"></span>
           </a>
           <a class="list-group-item" data-ng-href="{{goBack()}}">
@@ -26,11 +26,11 @@
           </a>
         </div>        
       </div>
-      </div>
+    </div>
   </div>
   <div data-ng-class="quiz.type == 'normal' ? 'col-sm-10' : 'col-sm-10'">
     <div class="container-fluid">
-      <div class="row" data-ng-if="quiz.type == 'normal'">
+      <div class="row">
        <div class="col-sm-12">
          <div class="container-fluid">
           <div class="panel panel-default">
@@ -43,12 +43,12 @@
     <div class="row" data-ng-style="{ 'margin-bottom' : quiz.type == 'normal' ? '0px' : '0px','margin-top' : quiz.type == 'normal' ? '15px' : '0px'}">
       <div class="col-sm-12">
         <div id="bc1" class="btn-group btn-breadcrumb">
-              <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
-              <a data-ng-href="#/subject/{{subject.id}}" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div ng-bind="subject.name"></div></a>
-              <a data-ng-href="#/subject/{{subject.id}}/quizzes" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
-              <a data-ng-href="#/quiz/{{id}}" class="btn btn-default"><div>{{quiz.title}}</div></a>
-          </div>
+          <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
+          <a data-ng-href="#/subject/{{subject.id}}" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div ng-bind="subject.name"></div></a>
+          <a data-ng-href="#/subject/{{subject.id}}/quizzes" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
+          <a data-ng-href="#/quiz/{{id}}" class="btn btn-default"><div>{{quiz.title}}</div></a>
         </div>
+      </div>
     </div>
     <div class="row">
       <div id="quiz-content" data-ng-class="quiz.type == 'normal' ? 'col-sm-8' : 'col-sm-12'">
@@ -68,11 +68,11 @@
                 <div class="col-sm-12">
                   <div class="panel panel-default">
                     <div class="panel-body">
-                      <span class="label label-success question-no" data-ng-cloak>Q{{question.number}}</span>
+                      <span class="label label-success question-no" data-ng-bind="quiz.type == 'normal'? 'Q' + question.number : 'Q' + ($index+1)"></span>
                       <p class="question-content" data-ng-cloak>{{question.question}}</p>
                       <div class="radio" data-ng-repeat="answer in question.answers">
                         <label>
-                          <input type="radio" id="optionsRadios{{question.number}}" ng-model="question.selected" data-ng-value="$index" data-ng-cloak>
+                          <input type="radio" id="optionsRadios{{question.number}}" ng-model="question.selected" data-ng-value="$index" data-ng-cloak />
                           {{answer}}
                         </label>
                       </div>
@@ -115,48 +115,43 @@
             </legend>
           </div>
         </div>
-                        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
-                        <div class="col-sm-5">
-                          <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
-                        </div>
-                        <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
-                          <p>{{unit.description}}</p>
-                        </div>
-                        </div>
+        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
+          <div class="col-sm-5">
+            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+          </div>
+          <div class="col-sm-7 recommended-item">
+            <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
+            <p>{{unit.description}}</p>
+          </div>
+        </div>
 
-                      <div class="row" id="recommended-items-header">
-                        <div class="col-sm-12">
-                          <legend>
-                            RELATED QUIZZES
-                          </legend>
-                        </div>
-                      </div>
-                        <!--
-                        <div>
-                          <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
-                        </div>
-                      -->
-                      <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
-                        <div class="col-sm-5">
-                          <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
-                        </div>
-                        <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.title}}</a></h6>
-                          <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
-                        </div>
+        <div class="row" id="recommended-items-header">
+          <div class="col-sm-12">
+            <legend>
+              RELATED QUIZZES
+            </legend>
+          </div>
+        </div>
+        <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
+          <div class="col-sm-5">
+            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+          </div>
+          <div class="col-sm-7 recommended-item">
+            <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>
+            <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
+          </div>
 
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-              </div>
+</div>
 
-            </section>
+</section>
 
-            <section class="container-fluid" id="bottom-section">
-              <ng-include src="footer()"></ng-include>
-            </section>
+<section class="container-fluid" id="bottom-section">
+  <ng-include src="footer()"></ng-include>
+</section>
 

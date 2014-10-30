@@ -211,25 +211,6 @@ $rootScope.knowledgeTree = [
 'topics' : []}
 ];
 
-$rootScope.topics = [
-{'id' : 1,
-'name' : 'Animals',
-'description' : 'Description of Animals',
-'status' : 0,
-'total' : 10,
-'completed': 5,
-'subTopics' : []
-},
-{'id' : 2,
-'name' : 'Reproduction',
-'description' : 'Description of Reproduction',
-'status' : 0,
-'total' : 10,
-'completed': 8,
-'subTopics' : []
-}
-];
-
 $rootScope.quizzes = [
 {
   'id' : 0,
@@ -243,28 +224,6 @@ $rootScope.quizzes = [
     'id' : ''
   },
   'questions' : [
-  {
-    'question' : 'Question 1',
-    'number': '1',
-    'answers' : [
-    'Choice 1',
-    'Choice 2',
-    'Choice 3',
-    'Choice 4'
-    ],
-    'selected' : ''
-  },
-  {
-    'question' : 'Question 2',
-    'number': '2',
-    'answers' : [
-    'Choice 1',
-    'Choice 2',
-    'Choice 3',
-    'Choice 4'
-    ],
-    'selected' : ''
-  }
   ]
 },
 
@@ -1048,7 +1007,8 @@ $rootScope.deadlines = [];
 $rootScope.deadline = {
   'name' : null,
   'date' : null,
-  'topics' : []
+  'topics' : [],
+  'score': 0
 };
 
 // Convert date string to day and month for displaying purpose
@@ -1110,6 +1070,16 @@ $rootScope.month = function (date) {
       time: time
     };
   };
+
+  $rootScope.studySubjects = [];
+
+  /* Deadline items */
+  $rootScope.deadlineItems = [];
+
+  $rootScope.$watch('deadlineItems', function () {
+    console.log($rootScope.deadlineItems.length);
+  });
+
 
   $(document).ready(function() {
     /* Toggle Tree  when clicked */

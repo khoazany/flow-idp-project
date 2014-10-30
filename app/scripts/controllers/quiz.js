@@ -6,7 +6,9 @@ angular.module('idpApp')
   $scope.id = $routeParams.id;
 
   $scope.quiz = $rootScope.quizzes[$routeParams.id];
-  $scope.quiz.submitted = 'Ongoing';
+
+  if($scope.quiz.type == 'normal') {
+    $scope.quiz.submitted = 'Ongoing';
 
   // Push the new quiz into the ongoing quiz array
   for(var i = $rootScope.ongoingQuiz.length -1; i >= 0 ; i--){
@@ -15,65 +17,83 @@ angular.module('idpApp')
     }
   }
   $rootScope.ongoingQuiz.push($routeParams.id);
-
-  $scope.subTopic = '';
-
-  if($scope.quiz.type == 'normal') {
-    $scope.subTopic = $rootScope.subTopicList[$scope.quiz.subTopic.id];
-  }
-
-  $scope.subject = $rootScope.knowledgeTree[$scope.quiz.subject.id];
-
-  $scope.header = function() {
-  	return "/views/header.html";
-  };
-
-  $scope.footer = function() {
-    return "/views/footer.html";
-  };
-
-  $scope.goBack = function () {
-    if($scope.quiz.type == 'normal') {
-      return '#/subject/' + $scope.subject.id;
-    } else {
-      return '#/home';
-    }
-  };
-
-  $scope.numberOfSubTopics = function () {
-    var count = 0;
-    for (var i = 0;i < $scope.subject.topics.length;i++) {
-      for (var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
-        count = count + 1;
+} else {
+  console.log('lol');
+  console.log($rootScope.deadline);
+  for(var i = 0;i < $rootScope.deadline.topics.length;i++) {
+    for(var j = 0;j < $rootScope.deadline.topics[i].subTopics.length;j++) {
+      if($rootScope.deadline.topics[i].subTopics[j].quiz.id != '') {
+        $scope.quiz.questions.push($rootScope.quizzes[$rootScope.deadline.topics[i].subTopics[j].quiz.id].questions[0]);
+        console.log($scope.quiz.questions);
       }
     }
-    return count;
-  };
+  }
+}
 
-  $scope.numberOfQuizzes = function () {
-    var count = 0;
-    if($scope.quiz.type == 'normal') {
-      for (var i = 0;i < $scope.subject.topics.length;i++) {
-        for (var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
-          if($scope.subject.topics[i].subTopics[j].quiz.id !== '') {
-            count = count + 1;
-          }
+$scope.subTopic = '';
+
+if($scope.quiz.type == 'normal') {
+  $scope.subTopic = $rootScope.subTopicList[$scope.quiz.subTopic.id];
+}
+
+$scope.subject = $rootScope.knowledgeTree[$scope.quiz.subject.id];
+
+$scope.header = function() {
+ return "/views/header.html";
+};
+
+$scope.footer = function() {
+  return "/views/footer.html";
+};
+
+$scope.goBack = function () {
+  if($scope.quiz.type == 'normal') {
+    return '#/subject/' + $scope.subject.id;
+  } else {
+    return '#/home';
+  }
+};
+
+$scope.numberOfSubTopics = function () {
+  var count = 0;
+  for (var i = 0;i < $scope.subject.topics.length;i++) {
+    for (var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
+      count = count + 1;
+    }
+  }
+  return count;
+};
+
+$scope.numberOfQuizzes = function () {
+  var count = 0;
+  if($scope.quiz.type == 'normal') {
+    for (var i = 0;i < $scope.subject.topics.length;i++) {
+      for (var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
+        if($scope.subject.topics[i].subTopics[j].quiz.id !== '') {
+          count = count + 1;
         }
       }
     }
-    return count;
-  };
+  }
+  return count;
+};
 
-  $scope.getSubTopic = function (id) {
-    return $rootScope.subTopicList[id].name;
-  };
+$scope.getSubTopic = function (id) {
+  return $rootScope.subTopicList[id].name;
+};
 
-  $scope.submitQuiz = function () {
+$scope.submitQuiz = function () {
+
     $scope.quiz.submitted = 'Submitted';
     var scoreCount = 0;
     for(var i = 0;i < $scope.quiz.questions.length;i++) {
       if($scope.quiz.questions[i].selected === $scope.quiz.questions[i].correctAns) {
         scoreCount = scoreCount + 1;
+      } else {
+        if($scope.quiz.type == 'diagnostic') {
+          $rootScope.deadlineItems.push($rootScope.subTopicList[$scope.quiz.questions[i].subTopic.id]);
+          $rootScope.deadlineItems.push($rootScope.quizzes[$rootScope.subTopicList[$scope.quiz.questions[i].subTopic.id].quiz.id]);
+        }
       }
     }
 
@@ -87,57 +107,63 @@ angular.module('idpApp')
       $scope.quiz.questions[i].selected = '';
     }
 
-    $rootScope.ongoingQuiz.pop();
-    $location.path('/subject/' + $scope.subject.id + '/quizzes');
-  };
-
-  $scope.getRelatedCourseUnit = function () {
-    var count1 = 0;
-    var hasCompleted = false;
-    var recommendedArray = [];
-    var recommendScore = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-
-    for(var i = 0;i < $scope.subject.topics.length;i++) {
-      for(var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
-        count1 = count1 + 1;
-        if($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].status == 0) {
-          recommendedArray.push($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id]);
-          for(var k = 0;k < recommendedArray.length;k++) {
-            recommendScore[recommendedArray[k].id] = recommendScore[recommendedArray[k].id] + 1;
-          }
-        } else {
-          for(var k = 0;k < recommendedArray.length;k++) {
-            if(hasCompleted) {
-              if(recommendScore[recommendedArray[k].id] > count1 - recommendScore[recommendedArray[k].id]) {
-                recommendScore[recommendedArray[k].id] = count1 - recommendScore[recommendedArray[k].id];
-              }
-            }
-          }
-          hasCompleted = true;
-          recommendedArray = [];
-          count1 = 0;
-        }
-      }
+    if($scope.quiz.type == 'normal') {
+      $rootScope.ongoingQuiz.pop();
+      $location.path('/subject/' + $scope.subject.id + '/quizzes');
+    } else {
+      $rootScope.deadline.score = $scope.quiz.score;
+      $rootScope.deadlines.push($rootScope.deadline);
+      $location.path('/home');
     }
+};
 
-    recommendScore[$scope.subTopic.id] = -1;
+$scope.getRelatedCourseUnit = function () {
+  var count1 = 0;
+  var hasCompleted = false;
+  var recommendedArray = [];
+  var recommendScore = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-    var recommendedToReturn = [];
-    for(var i = 0;i < $scope.subject.topics.length;i++) {
-      for(var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
-        if(hasCompleted) {
-          if(recommendScore[$scope.subject.topics[i].subTopics[j].id] > 0 && 
-            $rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].status != 1) {
-            $rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].recommended = recommendScore[$scope.subject.topics[i].subTopics[j].id];
-          recommendedToReturn.push($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id]);
+  for(var i = 0;i < $scope.subject.topics.length;i++) {
+    for(var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
+      count1 = count1 + 1;
+      if($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].status == 0) {
+        recommendedArray.push($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id]);
+        for(var k = 0;k < recommendedArray.length;k++) {
+          recommendScore[recommendedArray[k].id] = recommendScore[recommendedArray[k].id] + 1;
         }
       } else {
-        $rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].recommended = 1;
-        recommendedToReturn.push($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id]);
+        for(var k = 0;k < recommendedArray.length;k++) {
+          if(hasCompleted) {
+            if(recommendScore[recommendedArray[k].id] > count1 - recommendScore[recommendedArray[k].id]) {
+              recommendScore[recommendedArray[k].id] = count1 - recommendScore[recommendedArray[k].id];
+            }
+          }
+        }
+        hasCompleted = true;
+        recommendedArray = [];
+        count1 = 0;
       }
     }
   }
-  return recommendedToReturn;
+
+  recommendScore[$scope.subTopic.id] = -1;
+
+  var recommendedToReturn = [];
+  for(var i = 0;i < $scope.subject.topics.length;i++) {
+    for(var j = 0;j < $scope.subject.topics[i].subTopics.length;j++) {
+      if(hasCompleted) {
+        if(recommendScore[$scope.subject.topics[i].subTopics[j].id] > 0 && 
+          $rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].status != 1) {
+          $rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].recommended = recommendScore[$scope.subject.topics[i].subTopics[j].id];
+        recommendedToReturn.push($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id]);
+      }
+    } else {
+      $rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id].recommended = 1;
+      recommendedToReturn.push($rootScope.subTopicList[$scope.subject.topics[i].subTopics[j].id]);
+    }
+  }
+}
+return recommendedToReturn;
 }
 
 $scope.getRelatedQuizzes = function () {
@@ -190,7 +216,6 @@ $scope.getRelatedQuizzes = function () {
 
 $(document).ready(function() {
   if($scope.quiz.type == 'normal') {
-
     var treeData = [{
       "name": "Knowledge Tree",
       "children": []
@@ -210,12 +235,24 @@ $(document).ready(function() {
         "children": []
       };
       for(var k = 0;k < $scope.subject.topics[j].subTopics.length;k++) {
-        var temp3 = {
+        var temp3 = {};
+        temp3 = {
           "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
           "parent" : $scope.subject.topics[j].name,
+          "type" : "subtopic",
           "idtemp" : $scope.subject.topics[j].subTopics[k].id
         }
+        if($rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status == 1) {
+          temp3.name = $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name + ' (Done)';
+        }
+        var temp4 = {
+          "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title + ' (' + $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].submitted + ')',
+          "parent" : $scope.subject.topics[j].name,
+          "type" : "quiz",
+          "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id
+        }
         temp2.children.push(temp3);
+        temp2.children.push(temp4);
       }
       temp1.children.push(temp2);
     }
@@ -249,7 +286,7 @@ root.y0 = 0;
 
 update(root);
 
-d3.select(self.frameElement).style("height", "500px");
+d3.select(self.frameElement).style("height", "300px");
 }
 
 function update(source) {
@@ -273,7 +310,15 @@ function update(source) {
 
   nodeEnter.append("circle")
   .attr("r", 1e-6)
-  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+  .style("fill", function(d) { 
+    if(d._children) {
+      return "lightsteelblue";
+    } else if(d.status == 1 || d.submitted == 'Submitted') {
+      return "green";
+    } else {
+      return "#fff";
+    }
+  });
 
   nodeEnter.append("text")
   .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -337,6 +382,8 @@ function update(source) {
     d.x0 = d.x;
     d.y0 = d.y;
   });
+
+  console.log(nodes);
 }
 
 // Toggle children on click.
@@ -348,29 +395,43 @@ function click(d) {
     d.children = d._children;
     d._children = null;
   } else {
-    console.log("hihi");
-    $scope.$apply( function() {
-      $location.path('/subtopic/' + d.idtemp);
-    });
+    if(d.type == 'subtopic') {
+      $scope.$apply( function() {
+        $location.path('/subtopic/' + d.idtemp);
+      });
+    } else if (d.type == 'quiz') {
+      $scope.$apply( function() {
+        $location.path('/quiz/' + d.idtemp);
+      });
+    }
   }
   update(d);
 }
 
-$(".owl-carousel").each(function () {
-  $(this).owlCarousel({
-    items : 4,
-    lazyLoad : true,
-    navigation : true
-  });
+if ($('.progress-outer').height() > $('.progress-outer').width()) {
+  $('.progress').css("width", "50%");
+  $('.progress').css("height", $('.progress').width() + "px");
+  $('.progress').css("font-size", ($('.progress').width() / 5) + "px");
+  $('.progress').css("line-height", ($('.progress').width() / 100 * 90) + "px");
+} else {
+  $('.progress').css("height", "50%");
+  $('.progress').css("width", $('.progress').height() + "px");
+  $('.progress').css("font-size", ($('.progress').height() / 5) + "px");
+  $('.progress').css("line-height", ($('.progress').height() / 100 * 90) + "px");
+}
+$(window).resize(function() {
+  if ($(window).height() > $(window).width()) {
+    $('.progress').css("width", "50%");
+    $('.progress').css("height", $('.progress').width() + "px");
+    $('.progress').css("font-size", ($('.progress').width() / 5) + "px");
+    $('.progress').css("line-height", ($('.progress').width() / 100 * 90) + "px");
+  } else {
+    $('.progress').css("height", "50%");
+    $('.progress').css("width", $('.progress').height() + "px");
+    $('.progress').css("font-size", ($('.progress').height() / 5) + "px");
+    $('.progress').css("line-height", ($('.progress').height() / 100 * 90) + "px");
+  }
 });
-
-$('.progresslabel').each(function(){
-  if($(this).width() > $(this).parent().width()){
-   $(this).css("color","black");   
- }
-});
-
-
 
     // Instance the tour
     var tour = new Tour({

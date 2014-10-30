@@ -39,98 +39,95 @@
           <div class="panel panel-default">
             <div id="chart">
             </div>
-            <div
+            <div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row" style="margin-bottom: 0px; margin-top: 15px;">
-        <div class="col-sm-12">
-          <div id="bc1" class="btn-group btn-breadcrumb">
-            <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
-            <a class="btn btn-default" data-ng-href="#/subject/{{subject.id}}"><div data-ng-bind="subject.name"></div></a>
+    </div>
+    <div class="row" style="margin-bottom: 0px; margin-top: 15px;">
+      <div class="col-sm-12">
+        <div id="bc1" class="btn-group btn-breadcrumb">
+          <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
+          <a class="btn btn-default" data-ng-href="#/subject/{{subject.id}}"><div data-ng-bind="subject.name"></div></a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div id="quiz-content" class="col-sm-8">
+        <div class="container-fluid" style="margin-top: 15px;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title" data-ng-bind="subject.name" data-ng-cloak> </h1> 
+            </div>
+            <div class="panel-body" id="quiz-panel">
+              <legend>DESCRIPTION</legend>
+              <p data-ng-bind="subject.description"></p>
+              <legend>CONTENT</legend>
+              <div style="overflow-y: scroll; overflow-x: hidden;">
+                <ul class="nav nav-list">
+                  <li data-ng-repeat-start="topic in subject.topics"><label class="tree-toggler nav-header" ng-bind="topic.name"></label>
+                    <ul class="nav nav-list tree">
+                      <li data-ng-repeat="subTopic in topic.subTopics"><label class="tree-toggler nav-header" ng-bind="getSubTopicBySubTopicId(subTopic.id).name"></label>
+                        <ul class="nav nav-list tree">
+                          <li><a data-ng-href="#/subtopic/{{subTopic.id}}">Slide</a></li>
+                          <li><a data-ng-href="#/quiz/{{getQuizBySubTopicId(subTopic.id).id}}">Quiz</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="divider" data-ng-repeat-end></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div id="quiz-content" class="col-sm-8">
-          <div class="container-fluid" style="margin-top: 15px;">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h1 class="panel-title" data-ng-bind="subject.name" data-ng-cloak> </h1> 
-              </div>
-              <div class="panel-body" id="quiz-panel">
-                <legend>DESCRIPTION</legend>
-                <p data-ng-bind="subject.description"></p>
-                <legend>CONTENT</legend>
-                <div style="overflow-y: scroll; overflow-x: hidden;">
-                  <ul class="nav nav-list">
-                    <li data-ng-repeat-start="topic in subject.topics"><label class="tree-toggler nav-header" ng-bind="topic.name"></label>
-                      <ul class="nav nav-list tree">
-                        <li data-ng-repeat="subTopic in topic.subTopics"><label class="tree-toggler nav-header" ng-bind="getSubTopicBySubTopicId(subTopic.id).name"></label>
-                          <ul class="nav nav-list tree">
-                            <li><a data-ng-href="#/subtopic/{{subTopic.id}}">Slide</a></li>
-                            <li><a data-ng-href="#/quiz/{{getQuizBySubTopicId(subTopic.id).id}}">Quiz</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="divider" data-ng-repeat-end></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+      <div class="col-sm-4" id="right-sidebar">
+        <div class="row" id="recommended-items-header">
+          <div class="col-sm-12">
+            <legend>
+              RELATED COURSE UNITS
+            </legend>
           </div>
         </div>
-        <div class="col-sm-4" id="right-sidebar">
-          <div class="row" id="recommended-items-header">
-            <div class="col-sm-12">
-              <legend>
-                RELATED COURSE UNITS
-              </legend>
-            </div>
+        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
+          <div class="col-sm-5">
+            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
-          <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
-            <div class="col-sm-5">
-              <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
-            </div>
-            <div class="col-sm-7 recommended-item">
-              <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
-              <p>{{unit.description}}</p>
-            </div>
+          <div class="col-sm-7 recommended-item">
+            <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
+            <p>{{unit.description}}</p>
+          </div>
+        </div>
+
+        <div class="row" id="recommended-items-header">
+          <div class="col-sm-12">
+            <legend>
+              RELATED QUIZZES
+            </legend>
+          </div>
+        </div>
+        <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
+          <div class="col-sm-5">
+            <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+          </div>
+          <div class="col-sm-7 recommended-item">
+            <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>
+            <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
           </div>
 
-          <div class="row" id="recommended-items-header">
-            <div class="col-sm-12">
-              <legend>
-                RELATED QUIZZES
-              </legend>
-            </div>
-          </div>
-                        <!--
-                        <div>
-                          <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
-                        </div>
-                      -->
-                      <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
-                        <div class="col-sm-5">
-                          <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
-                        </div>
-                        <div class="col-sm-7 recommended-item">
-                        <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>
-                          <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        </div>
 
 
-              </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            </section>
+</section>
 
-            <section class="container-fluid" id="bottom-section">
-              <ng-include src="footer()"></ng-include>
-            </section>
+<section class="container-fluid" id="bottom-section">
+  <ng-include src="footer()"></ng-include>
+</section>
 

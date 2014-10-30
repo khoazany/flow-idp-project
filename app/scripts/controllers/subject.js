@@ -161,13 +161,22 @@ angular.module('idpApp')
         var temp3 = {
           "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
           "parent" : $scope.subject.topics[j].name,
+          "type" : "subtopic",
           "idtemp" : $scope.subject.topics[j].subTopics[k].id
         }
+        var temp4 = {
+          "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title,
+          "parent" : $scope.subject.topics[j].name,
+          "type" : "quiz",
+          "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id
+        }
         temp2.children.push(temp3);
+        temp2.children.push(temp4);
       }
       temp1.children.push(temp2);
     }
     treeData[0].children.push(temp1);
+    console.log(treeData);
 
 
 // ************** Generate the tree diagram  *****************
@@ -197,7 +206,7 @@ root.y0 = 0;
 
 update(root);
 
-d3.select(self.frameElement).style("height", "500px");
+d3.select(self.frameElement).style("height", "300px");
 
 function update(source) {
 
@@ -295,10 +304,15 @@ function click(d) {
     d.children = d._children;
     d._children = null;
   } else {
-    console.log("hihi");
-    $scope.$apply( function() {
-      $location.path('/subtopic/' + d.idtemp);
-    });
+    if(d.type == 'subtopic') {
+      $scope.$apply( function() {
+        $location.path('/subtopic/' + d.idtemp);
+      });
+    } else if (d.type == 'quiz') {
+      $scope.$apply( function() {
+        $location.path('/quiz/' + d.idtemp);
+      });
+    }
   }
   update(d);
 }

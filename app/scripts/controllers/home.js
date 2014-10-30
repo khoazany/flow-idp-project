@@ -32,12 +32,30 @@ angular.module('idpApp')
     }
     return countCompleted*100.0/countTotal;
   }
+
+  $scope.getProgressByTopic = function (topic) {
+    var statusDoneCount = 0;
+    for(var i = 0;i < topic.subTopics.length;i++) {
+      if (topic.subTopics[i].status == 1) {
+        statusDoneCount  = statusDoneCount + 1;
+      }
+    }
+    if(topic.subTopics.length > 0) {
+      return statusDoneCount/topic.subTopics.length;
+    } else {
+      return 0;
+    }
+  }
   
   $timeout(function(){
     $scope.progressValue = $scope.countTo;
   }, 200);
 
-  $scope.studySubjects = [];
+  $scope.studySubjects = $rootScope.studySubjects;
+
+  $scope.$watch('studySubjects', function () {
+    $rootScope.studySubjects = $scope.studySubjects;
+  });
 
   /* Get regular items */
   $scope.getRegularItems = function () {
@@ -101,6 +119,18 @@ angular.module('idpApp')
   }
   return recommendedToReturn.slice(0,4);
 }
+
+/* Compute color of the bar */
+$scope.barColor = function (score) {
+  if(score < 50) {
+    return 'progress-bar-danger';
+  } else if (score >= 50 && score < 75) {
+    return 'progress-bar-warning';
+  } else {
+    return 'progress-bar-success';
+  }
+}
+
 
 $(document).ready(function() {
 
@@ -170,7 +200,7 @@ root.y0 = 0;
 
 update(root);
 
-d3.select(self.frameElement).style("height", "500px");
+d3.select(self.frameElement).style("height", "300px");
 
 function update(source) {
 
