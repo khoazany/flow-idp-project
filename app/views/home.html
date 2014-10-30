@@ -44,7 +44,10 @@
   </div>
 
   <div class="row">
-    <div class="jumbotron"></div>
+    <div class="panel panel-default">
+      <div id="chart">
+      </div>
+    </div>
   </div>
 
   <div class="row" id="important-item-list">
@@ -104,65 +107,65 @@
                 </div>
 
                 <div class="row">
-                  <div class="owl-carousel">
-                    <div class="item">
-                      <img class="lazyOwl" data-src="/images/owl1.jpg" alt="Lazy Owl Image">
-                      <h6>Unit Name</h6>
-                      <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
+                  <slick slickSlider slides-to-show=3 slides-to-scroll=1>
+                    <div class="item-to-show" data-ng-repeat="s in getRegularItems() | orderBy: 'recommended'" style="display: inline-block; width: 20%; margin-right: 20px;">
+                      <div data-ng-switch="s.name == undefined">
+                        <div data-ng-switch-when="true">
+                          <a data-ng-href="#/quiz/{{s.id}}"><img src="/images/owl8.jpg"/></a>
+                          <a data-ng-href="#/quiz/{{s.id}}">
+                            <h6>{{s.title}}</h6>
+                          </a>
+                          <p style="font-weight: 200; font-size: 12px;">
+                            Estimated time taken: {{2*s.questions.length}} min
+                          </p>
+                        </div>
+                        <div data-ng-switch-when="false">
+                          <a data-ng-href="#/subtopic/{{s.id}}"><img src="/images/owl8.jpg"/></a>
+                          <a data-ng-href="#/subtopic/{{s.id}}">
+                            <h6>{{s.name}}</h6>
+                          </a>
+                          <p style="font-weight: 200; font-size: 12px;">
+                            {{s.description}}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="item"><img class="lazyOwl" data-src="/images/owl2.jpg" alt="Lazy Owl Image">
-                      <h6>Unit Name</h6>
-                      <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                      <div class="item"><img class="lazyOwl" data-src="/images/owl3.jpg" alt="Lazy Owl Image">
-                        <h6>Unit Name</h6>
-                        <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                        <div class="item"><img class="lazyOwl" data-src="/images/owl4.jpg" alt="Lazy Owl Image">
-                          <h6>Unit Name</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                          <div class="item"><img class="lazyOwl" data-src="/images/owl5.jpg" alt="Lazy Owl Image">
-                            <h6>Unit Name</h6>
-                            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                            <div class="item"><img class="lazyOwl" data-src="/images/owl6.jpg" alt="Lazy Owl Image">
-                              <h6>Unit Name</h6>
-                              <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                              <div class="item"><img class="lazyOwl" data-src="/images/owl7.jpg" alt="Lazy Owl Image">
-                                <h6>Unit Name</h6>
-                                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-                                <div class="item"><img class="lazyOwl" data-src="/images/owl8.jpg" alt="Lazy Owl Image">
-                                  <h6>Unit Name</h6>
-                                  <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p></div>
-
-                                </div>
-                              </div>
-                              <div class="row" id="current-studying-header">
-                                <div class="col-sm-12">
-                                  <legend>
-                                    CURRENLY STUDYING SUBJECTS
-                                  </legend>
-                                </div>
-                              </div>
-                              <div class="row" id="current-studying">
-                                <div class="col-sm-12">
-                                  <div ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" class="blockquote-box clearfix">
-                                    <div class="square pull-left" ng-bind-html="subject.representingBox">
-                                    </div>
-                                    <h4>
-                                      {{subject.name}}</h4>
-                                      <p>
-                                        {{subject.description}}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-3" id="right-sidebar">
-                                <div class="row" id="recommended-items-header">
-                                  <div class="col-sm-12">
-                                    <legend>
-                                      DEADLINES <div class="btn btn-info" ng-click="showAModal()">Add <span class="glyphicon glyphicon-plus"></span></div>
-                                    </legend>
-                                  </div>
-                                </div>
+                  </slick>
+                </div>
+                <div class="row" id="current-studying-header">
+                  <div class="col-sm-12">
+                    <legend>
+                      CURRENLY STUDYING SUBJECTS
+                    </legend>
+                  </div>
+                </div>
+                <div class="row" id="current-studying">
+                  <div ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" class="blockquote-box clearfix">
+                    <div class="col-sm-2">
+                      <div class="square pull-left" ng-bind-html="subject.representingBox">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <h4>
+                        {{subject.name}}</h4>
+                        <p>
+                          {{subject.description}}
+                        </p>
+                        <p>
+                          <h5>Progress:</h5> <progressbar class="progress-striped active" animate="true" max="100" value="progressValue" type="success"><i><span count-to="{{countTo}}" duration="1" count-from="{{countFrom}}"></span> / 100</i></progressbar>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3" id="right-sidebar">
+                  <div class="row" id="recommended-items-header">
+                    <div class="col-sm-12">
+                      <legend>
+                        DEADLINES <div class="btn btn-info" ng-click="showAModal()">Add <span class="glyphicon glyphicon-plus"></span></div>
+                      </legend>
+                    </div>
+                  </div>
                         <!--
                         <div>
                           <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>

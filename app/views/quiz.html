@@ -18,8 +18,8 @@
           <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}" data-ng-if="quiz.type == 'normal'">
             <i class="fa fa-mortar-board"></i> Lectures <span class="badge" ng-model="numberOfSubTopics" data-ng-bind="numberOfSubTopics()"></span>
           </a>
-          <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes" data-ng-if="quiz.type == 'normal'">
-            <i class="fa fa-question"></i> Quizzes <span class="badge">14</span>
+          <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes">
+            <i class="fa fa-question"></i> Quizzes <span class="badge" data-ng-model="numberOfQuizzes" data-ng-bind="numberOfQuizzes()"></span>
           </a>
           <a class="list-group-item" data-ng-href="{{goBack()}}">
             <i class="fa fa-long-arrow-left" data-ng-bind="quiz.type == 'normal' ? ' ' + subject.name : ' Main Page'"></i>
@@ -33,7 +33,10 @@
       <div class="row" data-ng-if="quiz.type == 'normal'">
        <div class="col-sm-12">
          <div class="container-fluid">
-          <div class="jumbotron"></div>
+          <div class="panel panel-default">
+            <div id="chart">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -42,7 +45,7 @@
         <div id="bc1" class="btn-group btn-breadcrumb">
               <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
               <a data-ng-href="#/subject/{{subject.id}}" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div ng-bind="subject.name"></div></a>
-              <a href="#" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
+              <a data-ng-href="#/subject/{{subject.id}}/quizzes" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
               <a data-ng-href="#/quiz/{{id}}" class="btn btn-default"><div>{{quiz.title}}</div></a>
           </div>
         </div>
@@ -69,7 +72,7 @@
                       <p class="question-content" data-ng-cloak>{{question.question}}</p>
                       <div class="radio" data-ng-repeat="answer in question.answers">
                         <label>
-                          <input type="radio" id="optionsRadios{{question.number}}" ng-model="question.selected" data-ng-value="answer" data-ng-cloak>
+                          <input type="radio" id="optionsRadios{{question.number}}" ng-model="question.selected" data-ng-value="$index" data-ng-cloak>
                           {{answer}}
                         </label>
                       </div>
@@ -104,7 +107,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4" id="right-sidebar" ng-if="quiz.type == 'normal'">
+      <div data-ng-if="quiz.type == 'normal'" class="col-sm-4" id="right-sidebar">
         <div class="row" id="recommended-items-header">
           <div class="col-sm-12">
             <legend>
@@ -112,41 +115,15 @@
             </legend>
           </div>
         </div>
-                        <!--
-                        <div>
-                          <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
-                        </div>
-                      -->
-                      <div class="row">
+                        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
                         <div class="col-sm-5">
-                          <img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image">
+                          <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
                         </div>
                         <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name">Unit Name</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
+                          <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
+                          <p>{{unit.description}}</p>
                         </div>
-
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5">
-                          <img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image">
                         </div>
-                        <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name">Unit Name</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
-                        </div>
-
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5">
-                          <img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image">
-                        </div>
-                        <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name">Unit Name</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
-                        </div>
-
-                      </div>
 
                       <div class="row" id="recommended-items-header">
                         <div class="col-sm-12">
@@ -160,33 +137,13 @@
                           <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
                         </div>
                       -->
-                      <div class="row">
+                      <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
                         <div class="col-sm-5">
-                          <img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image">
+                          <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
                         </div>
                         <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name">Quiz 1</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
-                        </div>
-
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5">
-                          <img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image">
-                        </div>
-                        <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name">Quiz 2</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
-                        </div>
-
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5">
-                          <img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image">
-                        </div>
-                        <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name">Quiz 3</h6>
-                          <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac.</p>
+                          <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.title}}</a></h6>
+                          <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
                         </div>
 
                       </div>

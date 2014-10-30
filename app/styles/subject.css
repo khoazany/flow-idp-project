@@ -43,53 +43,6 @@
   background-color: #e5e5e5;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300);
-
-.progress {
-  background: #eee;
-  border-radius: 50%;
-  position: absolute;
-  font-family: 'Lato', sans-serif;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  border: 2px solid #34495e;
-  overflow: hidden;
-}
-.progress:before {
-  content: "42%";
-  text-align: center;
-  color: #eee;
-  width: 90%;
-  height: 90%;
-  background: #34495e;
-  position: absolute;
-  border-radius: 50%;
-  left: 5%;
-  top: 5%;
-  z-index: 1000;
-  border: 2px solid #34495e;
-  box-sizing: border-box;
-  font-size: 10px;
-}
-.progress .hide {
-  height: 100%;
-  width: 50%;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  background: #eee;
-  z-index: 200;
-  transform-origin: left center;
-  transform: rotate(151.2deg);
-}
-.progress .active, .progress .active2 {
-  width: 50%;
-  height: 100%;
-  background: #2ecc71;
-  position: absolute;
-  left: 50%;
-  top: 0;
+.quiz-finished {
+  color: green;
 }

@@ -142,4 +142,27 @@
 
 .progress {
   margin-bottom: 5px;
+  width: 80%;
 }
+
+.progress {
+  height: 3em;
+}
+.progress i {
+  line-height: 3.5em;
+}
+
+.progress-bar {
+  -webkit-transition: width 1s ease-in-out;
+          transition: width 1s ease-in-out;
+}
+
+img
+{
+ max-width:100%;   
+}
+
+.item-to-show {
+  vertical-align: top;
+}
+
