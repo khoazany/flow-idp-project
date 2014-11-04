@@ -30,13 +30,14 @@
         </label>
       </div>
       <div class="col-sm-4">
-        <select class="chosen-select chosen-rtl" multiple
+        <select multiple
         chosen
         ng-model="studySubjects"
         ng-options="s.name for s in knowledgeTree | filter: {'eduLevel' : chosenLevel}"
         style="width:80%;"
         data-placeholder="Select subjects to study"
-        no-results-text="'Not found'">
+        no-results-text="'Not found'"
+        class="chosen-select chosen-rtl">
         <option value=""></option>
       </select>
     </div>

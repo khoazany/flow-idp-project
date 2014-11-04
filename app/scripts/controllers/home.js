@@ -11,7 +11,7 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
-  $scope.images = ['Quiz 1','Quiz 2','Quiz 3','Quiz 4'];
+  $scope.studySubjectss = [];
 
   /* Progress bar */
   $scope.countFrom = 0;
@@ -50,8 +50,6 @@ angular.module('idpApp')
   $timeout(function(){
     $scope.progressValue = $scope.countTo;
   }, 200);
-
-  $scope.studySubjects = $rootScope.studySubjects;
 
   $scope.$watch('studySubjects', function () {
     $rootScope.studySubjects = $scope.studySubjects;

@@ -134,7 +134,7 @@
         </div>
         <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
           <div class="col-sm-5">
-            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+            <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
           <div class="col-sm-7 recommended-item">
             <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>

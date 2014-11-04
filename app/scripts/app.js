@@ -1076,11 +1076,6 @@ $rootScope.month = function (date) {
   /* Deadline items */
   $rootScope.deadlineItems = [];
 
-  $rootScope.$watch('deadlineItems', function () {
-    console.log($rootScope.deadlineItems.length);
-  });
-
-
   $(document).ready(function() {
     /* Toggle Tree  when clicked */
     $(document).on('click','label.tree-toggler', function () {
