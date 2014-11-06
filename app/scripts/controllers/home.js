@@ -11,7 +11,7 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
-  $scope.studySubjectss = [];
+  $scope.studySubjects = [];
 
   /* Progress bar */
   $scope.countFrom = 0;
@@ -154,18 +154,39 @@ $(document).ready(function() {
           "name": $rootScope.subTopicList[$rootScope.knowledgeTree[i].topics[j].subTopics[k].id].name,
           "parent" : $rootScope.knowledgeTree[i].topics[j].name,
           "idtemp" : $rootScope.knowledgeTree[i].topics[j].subTopics[k].id,
-          "type": "subtopic"
+          "type": "subtopic",
+          "status": $rootScope.subTopicList[$rootScope.knowledgeTree[i].topics[j].subTopics[k].id].status,
+        }
+        if($rootScope.knowledgeTree[i].topics[j].subTopics[k].id > 0 && $rootScope.subTopicList[$rootScope.knowledgeTree[i].topics[j].subTopics[k].id-1].status == 1) {
+          temp3.future = true;
+        } else {
+          temp3.future = false;
         }
         temp2._children.push(temp3);
+
+        var temp4 = {
+          "name": $rootScope.quizzes[$rootScope.knowledgeTree[i].topics[j].subTopics[k].quiz.id].title,
+          "parent" : $rootScope.knowledgeTree[i].topics[j].name,
+          "idtemp" : $rootScope.knowledgeTree[i].topics[j].subTopics[k].quiz.id,
+          "type" : "quiz",
+          "submitted" : $rootScope.quizzes[$rootScope.knowledgeTree[i].topics[j].subTopics[k].quiz.id].submitted,
+        }
+        if($rootScope.subTopicList[$rootScope.knowledgeTree[i].topics[j].subTopics[k].id].status == 1) {
+          temp4.future = true;
+        } else {
+          temp4.future = false;
+        }
+        temp2._children.push(temp4);
+
       }
       temp1._children.push(temp2);
     }
     temp1._children.push({
-        "name": $rootScope.knowledgeTree[i].name + ' Subject Page',
-        "parent": $rootScope.knowledgeTree[i].name,
-        "_children": [],
-        "idtemp" : $rootScope.knowledgeTree[i].id,
-        "type": "subject"
+      "name": $rootScope.knowledgeTree[i].name + ' Subject Page',
+      "parent": $rootScope.knowledgeTree[i].name,
+      "_children": [],
+      "idtemp" : $rootScope.knowledgeTree[i].id,
+      "type": "subject"
     });
     treeData[0].children.push(temp1);
   }
@@ -221,7 +242,20 @@ function update(source) {
 
   nodeEnter.append("circle")
   .attr("r", 1e-6)
-  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+  .style("fill", function(d) { 
+    console.log(d.type);
+    if(d._children) {
+      return "lightsteelblue";
+    } else if(d.type === "subject") {
+      if(d.status == 0) {
+        return "green";
+      } else {
+        return "red";
+      }
+    } else {
+      return "#fff"; 
+    }
+  });
 
   nodeEnter.append("text")
   .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -237,7 +271,37 @@ function update(source) {
 
   nodeUpdate.select("circle")
   .attr("r", 10)
-  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+  .style("fill", function(d) { 
+    console.log(d.type);
+    if(d.type == "subtopic") {
+      if(d.status == 1) {
+        return "#2ecc71";
+      } else { 
+        console.log(d.future);
+        if(d.future == true) {
+          return "#e74c3c";
+        } else {
+          return "#fff"
+        }
+      }
+    } else if(d.type == "quiz") {
+      if(d.submitted == 'submitted') {
+        return "#2ecc71";
+      } else { 
+        console.log(d.future);
+        if(d.future == true) {
+          return "#e74c3c";
+        } else {
+          return "#fff"
+        }
+      }
+    }
+    if(d._children) {
+      return "lightsteelblue";
+    } else {
+      return "#fff";
+    }
+  });
 
   nodeUpdate.select("text")
   .style("fill-opacity", 1);
@@ -342,7 +406,7 @@ function click(d) {
 tour.init();
 
 // Start the tour
-//tour.start(); 
+tour.start(); 
 
 });
 

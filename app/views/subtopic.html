@@ -64,42 +64,43 @@
 
               <div class="panel-footer clearfix">
                 <div class="pull-right">
-                  <button class="btn btn-default" data-ng-click="zoomIn()">+</span></button>
-                  <button class="btn btn-default" data-ng-click="zoomOut()">-</span></button>
+                  <button class="btn btn-default" data-ng-click="zoomIn()"><span>+</span></button>
+                  <button class="btn btn-default" data-ng-click="zoomOut()"><span>-</span></button>
                   <span>Page: </span><input class="page-num" type="text" min=1 ng-model="pageNum"><span> / {{pageCount}}</span>
-                  <button class="btn btn-default" data-ng-click="goPrevious()">Previous</span></button>
-                  <button class="btn btn-default" data-ng-click="goNext()">Next</span></button>
-                  <button class="btn btn-success" data-ng-click="done()">I'm Done!</span></button>
+                  <button class="btn btn-default" data-ng-click="goPrevious()"><span>Previous</span></button>
+                  <button class="btn btn-default" data-ng-click="goNext()"><span>Next</span></button>
+                  <button class="btn btn-success" data-ng-click="done()"><span>I'm Done!</span></button>
                 </div>
               </div>
+              <div recent-comments params="{limit: 5, related:'thread'}"></div>
             </div>
+          </div>
+      </div>
+      <div class="col-sm-4" id="right-sidebar">
+        <div class="row" id="recommended-items-header">
+          <div class="col-sm-12">
+            <legend>
+              RELATED COURSE UNITS
+            </legend>
           </div>
         </div>
-        <div class="col-sm-4" id="right-sidebar">
-          <div class="row" id="recommended-items-header">
-            <div class="col-sm-12">
-              <legend>
-                RELATED COURSE UNITS
-              </legend>
-            </div>
+        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
+          <div class="col-sm-5">
+            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
-          <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
-            <div class="col-sm-5">
-              <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
-            </div>
-            <div class="col-sm-7 recommended-item">
-              <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
-              <p>{{unit.description}}</p>
-            </div>
+          <div class="col-sm-7 recommended-item">
+            <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
+            <p>{{unit.description}}</p>
           </div>
+        </div>
 
-          <div class="row" id="recommended-items-header">
-            <div class="col-sm-12">
-              <legend>
-                RELATED QUIZZES
-              </legend>
-            </div>
+        <div class="row" id="recommended-items-header">
+          <div class="col-sm-12">
+            <legend>
+              RELATED QUIZZES
+            </legend>
           </div>
+        </div>
                         <!--
                         <div>
                           <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
@@ -107,7 +108,7 @@
                       -->
                       <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
                         <div class="col-sm-5">
-                        <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+                          <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
                         </div>
                         <div class="col-sm-7 recommended-item">
                           <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>
