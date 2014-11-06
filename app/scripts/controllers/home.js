@@ -365,6 +365,10 @@ function click(d) {
       $scope.$apply( function() {
         $location.path('/subject/' + d.idtemp); 
       });
+    } else if(d.type == 'quiz') {
+      $scope.$apply( function() {
+        $location.path('/quiz/' + d.idtemp); 
+      });
     } else {
       $scope.$apply( function() {
         $location.path('/subtopic/' + d.idtemp);
