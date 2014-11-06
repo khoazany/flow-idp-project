@@ -285,7 +285,7 @@ function update(source) {
         }
       }
     } else if(d.type == "quiz") {
-      if(d.submitted == 'submitted') {
+      if(d.submitted == 'Submitted') {
         return "#2ecc71";
       } else { 
         console.log(d.future);
