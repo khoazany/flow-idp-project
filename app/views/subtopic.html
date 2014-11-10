@@ -72,9 +72,12 @@
                   <button class="btn btn-success" data-ng-click="done()"><span>I'm Done!</span></button>
                 </div>
               </div>
-              <div recent-comments params="{limit: 5, related:'thread'}"></div>
             </div>
           </div>
+           <dir-disqus disqus-shortname="idpflow"
+                disqus-identifier="{{subTopic.id}}"
+                disqus-url="{{subTopic.id}}">
+              </dir-disqus>
       </div>
       <div class="col-sm-4" id="right-sidebar">
         <div class="row" id="recommended-items-header">
@@ -84,7 +87,7 @@
             </legend>
           </div>
         </div>
-        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
+        <div class="row related-items" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
           <div class="col-sm-5">
             <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
@@ -106,7 +109,7 @@
                           <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
                         </div>
                       -->
-                      <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
+                      <div class="row related-items" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
                         <div class="col-sm-5">
                           <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
                         </div>

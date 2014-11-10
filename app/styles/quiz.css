@@ -22,3 +22,39 @@
 	  stroke: #ccc;
 	  stroke-width: 2px;
 	}
+
+.question-content {
+	font-size: 16px;
+}
+
+.question-panel {
+	margin-top: 20px;
+	margin-left: 15px;
+}
+
+.row .save-and-hint {
+	margin-left: -15px;
+}
+
+.panel-hint {
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+.panel-hint p{
+	font-size: 14px;
+}
+
+.btn-inverse {
+	color: white;
+	background-color: #2C3E50;
+}
+
+.btn-inverse:hover {
+	color: white;
+}
+
+.panel-hint a {
+	color: -webkit-link;
+	text-decoration: underline;
+}

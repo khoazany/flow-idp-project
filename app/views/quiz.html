@@ -60,13 +60,13 @@
             <div class="warning" data-ng-if="quiz.type == 'diagnostic'">
               <div class="alert alert-warning"><label class="label label-warning">Warning</label> If you close this page before submiting the quiz, your answers won't be taken and the system will take your current progress in the knowledge tree as the result!</div>
             </div>
-            <div class="warning" data-ng-if="quiz.submitted == true">
+            <div class="warning" data-ng-if="lastQuizState == 'Submitted'">
               <div class="alert alert-warning"><label class="label label-warning">Warning</label> You have already done this quiz.If you want to retry the score will be recomputed.</div>
             </div>
             <div class="panel-body" id="quiz-panel">
               <div class="row" data-ng-repeat-start="question in quiz.questions" ng-init="temp = quiz.questions[$parent.$index].selected">
                 <div class="col-sm-12">
-                  <div class="panel panel-default">
+                  <div class="panel panel-default question-panel">
                     <div class="panel-body">
                       <span class="label label-success question-no" data-ng-bind="quiz.type == 'normal'? 'Q' + question.number : 'Q' + ($index+1)"></span>
                       <p class="question-content" data-ng-cloak>{{question.question}}</p>
@@ -80,7 +80,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row" data-ng-if="quiz.type == 'normal'">
+              <div class="row save-and-hint" data-ng-if="quiz.type == 'normal'">
                 <div class="col-sm-12">
                   <a data-ng-class="question.saved? 'btn-inverse' : 'btn-default'" data-ng-click="question.saved = true" class="btn" data-ng-bind="question.saved? 'Saved' : 'Save'"></a>
                   <a class="btn" data-ng-class="question.hinted? '' : 'btn-default'" data-ng-click="question.hinted = !question.hinted" data-ng-bind="question.hinted == false ? 'Show Hint' : 'Hide Hint'"></a>
@@ -91,7 +91,7 @@
                   <div class="panel panel-default panel-hint">
                     <div class="panel-body">
                       <p>{{question.hint}}</p>
-                      <p>Related sub-topic: <a data-ng-href="#/subtopic/{{question.subTopic.id}}" ng-bind="getSubTopic(question.subTopic.id)"></a></p>
+                      <p>Related sub-topic: <a href="#" data-ng-href="#/subtopic/{{question.subTopic.id}}" ng-bind="getSubTopic(question.subTopic.id)"></a></p>
                     </div>
                   </div>
                 </div>
@@ -115,7 +115,7 @@
             </legend>
           </div>
         </div>
-        <div class="row" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
+        <div class="row related-items" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
           <div class="col-sm-5">
             <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
@@ -132,7 +132,7 @@
             </legend>
           </div>
         </div>
-        <div class="row" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
+        <div class="row related-items" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
           <div class="col-sm-5">
             <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>

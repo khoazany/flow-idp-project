@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpApp')
-.controller('SubtopicCtrl', function ($scope,$rootScope,$routeParams,$location) {
+.controller('SubtopicCtrl', function ($scope,$rootScope,$routeParams,$location,disqusApi) {
 
   $scope.subTopic = $rootScope.subTopicList[$routeParams.id];
 
@@ -162,34 +162,34 @@ $(document).ready(function() {
 
   for(var j = 0;j < $scope.subject.topics.length;j++) {
 
-      var temp2 = {
-        "name": $scope.subject.topics[j].name,
-        "parent": $scope.subject.name,
-        "children": []
-      };
-      for(var k = 0;k < $scope.subject.topics[j].subTopics.length;k++) {
-        var temp3 = {};
-        temp3 = {
-          "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
-          "parent" : $scope.subject.topics[j].name,
-          "type" : "subtopic",
-          "idtemp" : $scope.subject.topics[j].subTopics[k].id
-        }
-        if($rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status == 1) {
-          temp3.name = $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name + ' (Done)';
-        }
-        var temp4 = {
-          "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title + ' (' + $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].submitted + ')',
-          "parent" : $scope.subject.topics[j].name,
-          "type" : "quiz",
-          "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id
-        }
-        temp2.children.push(temp3);
-        temp2.children.push(temp4);
+    var temp2 = {
+      "name": $scope.subject.topics[j].name,
+      "parent": $scope.subject.name,
+      "children": []
+    };
+    for(var k = 0;k < $scope.subject.topics[j].subTopics.length;k++) {
+      var temp3 = {};
+      temp3 = {
+        "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
+        "parent" : $scope.subject.topics[j].name,
+        "type" : "subtopic",
+        "idtemp" : $scope.subject.topics[j].subTopics[k].id
       }
-      temp1.children.push(temp2);
+      if($rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status == 1) {
+        temp3.name = $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name + ' (Done)';
+      }
+      var temp4 = {
+        "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title + ' (' + $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].submitted + ')',
+        "parent" : $scope.subject.topics[j].name,
+        "type" : "quiz",
+        "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id
+      }
+      temp2.children.push(temp3);
+      temp2.children.push(temp4);
     }
-    treeData[0].children.push(temp1);
+    temp1.children.push(temp2);
+  }
+  treeData[0].children.push(temp1);
 
 
 // ************** Generate the tree diagram  *****************

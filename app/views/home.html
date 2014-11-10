@@ -12,13 +12,13 @@
 <section class="container-fluid row" id="top-content" style="margin-left: 0px; margin-right: 0px;">
   <div class="col-sm-9">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-4" id="choose-edu-level">
         <select class="form-control" ng-model="chosenLevel">
           <option value = "">All</option>
           <option ng-cloak ng-repeat="level in eduLevels" value="{{level}}">{{level}}</option>
         </select>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" id="choose-study-mode">
         <label class="switch-light well" onclick="">
           <input type="checkbox">
           <span>
@@ -29,7 +29,7 @@
           <a class="btn btn-success"></a>
         </label>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" id="add-new-subject">
         <select multiple
         chosen
         ng-model="studySubjects"
@@ -44,7 +44,7 @@
 
   </div>
 
-  <div class="row">
+  <div class="row" id="knowledge-tree">
     <div class="panel panel-default">
       <div id="chart">
       </div>

@@ -11,6 +11,8 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
+  $scope.firstTime = true;
+
   $scope.studySubjects = [];
 
   /* Progress bar */
@@ -392,14 +394,58 @@ function click(d) {
       name: "newuser-tour",
       steps: [
       {
-        element: "#popular-item-list",
-        title: "Test 1",
-        content: "Content of my step"
+        element: "#top-header",
+        title: "Welcome to Flow!",
+        content: "Flow is an adaptive learning platform that personalize your studying routine based on the recommendation " +
+        "engine.This tour will walk you through about how to use some basic features of the platform."
       },
       {
-        element: "#current-studying-header",
-        title: "Test 2",
-        content: "Content of my step"
+        element: "#choose-edu-level",
+        title: "Choose Education Level",
+        content: "You can filter out only those subjects that belong to your current education level or the education level " +
+        "that you're interested in.If you don't have any preference, just choose \"All\"."
+      },
+      {
+        element: "#choose-study-mode",
+        title: "Choose Study Mode",
+        content: "If you don't want to be distracted by the recommeneded items in the sidebar when studying or taking the quiz, " +
+        "turn on the study mode and the world will be all cool again."
+      },
+      {
+        element: "#add-new-subject",
+        title: "Add New Subject",
+        content: "Start studying by selecting the subjects.You can come back and add new subjects every time you want."
+      },
+      {
+        element: "#knowledge-tree",
+        title: "Knowledge Tree",
+        content: "What is this weird thing here?The knowledge tree will help you keep track of your current progress " +
+        " and suggest the next items that you need to take.Click on the nodes to expand or narrow the tree."
+      },
+      {
+        element: "#regular-item-list",
+        title: "Regular Study Items",
+        content: "After you have selected the subjects, the system will start recommending the items that you " +
+        "need to take for these subjects.The recommended list will keep changing the more items you take."
+      },
+      {
+        element: "#current-studying",
+        title: "Current Studying Subjects",
+        content: "Summary of all your studying subjects goes here with your current progress for each subject " +
+        "(you need to add at least one subject to see any content here)."
+      },
+      {
+        element: "#recommended-items-header",
+        title: "Add New Deadline",
+        content: "This is a special functionality to help you study for your exam.Add the time and topic covered " +
+        "in your exam and the system will lead you to a diagnostic quiz to help you determine what is the items " +
+        "that you need to revise to do well in the exam."
+      },
+      {
+        element: "#important-item-list",
+        title: "Deadline Items",
+        content: "These are all of the recommended items we revise you to take to prepare for your exams.Go through every of them " +
+        "and crush your next exam like a boss!"
       }
       ],
       storage: false,
