@@ -15,10 +15,10 @@
           <span href="#" class="list-group-item active">
             <h5 data-ng-cloak>{{subject.name}}</h5>
           </span>
-          <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}" data-ng-if="quiz.type == 'normal'">
+          <a class="list-group-item" data-ng-href="#!/subject/{{subject.id}}" data-ng-if="quiz.type == 'normal'">
             <i class="fa fa-mortar-board"></i> Lectures <span class="badge" ng-model="numberOfSubTopics" data-ng-bind="numberOfSubTopics()"></span>
           </a>
-          <a data-ng-if="quiz.type == 'normal'" class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes">
+          <a data-ng-if="quiz.type == 'normal'" class="list-group-item" data-ng-href="#!/subject/{{subject.id}}/quizzes">
             <i class="fa fa-question"></i> Quizzes <span class="badge" data-ng-model="numberOfQuizzes" data-ng-bind="numberOfQuizzes()"></span>
           </a>
           <a class="list-group-item" data-ng-href="{{goBack()}}">
@@ -43,10 +43,10 @@
     <div class="row" data-ng-style="{ 'margin-bottom' : quiz.type == 'normal' ? '0px' : '0px','margin-top' : quiz.type == 'normal' ? '15px' : '0px'}">
       <div class="col-sm-12">
         <div id="bc1" class="btn-group btn-breadcrumb">
-          <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
-          <a data-ng-href="#/subject/{{subject.id}}" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div ng-bind="subject.name"></div></a>
-          <a data-ng-href="#/subject/{{subject.id}}/quizzes" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
-          <a data-ng-href="#/quiz/{{id}}" class="btn btn-default"><div>{{quiz.title}}</div></a>
+          <a href="#!/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
+          <a data-ng-href="#!/subject/{{subject.id}}" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div ng-bind="subject.name"></div></a>
+          <a data-ng-href="#!/subject/{{subject.id}}/quizzes" class="btn btn-default" data-ng-if="quiz.type == 'normal'"><div>Quizzes</div></a>
+          <a data-ng-href="#!/quiz/{{id}}" class="btn btn-default"><div>{{quiz.title}}</div></a>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
                   <div class="panel panel-default panel-hint">
                     <div class="panel-body">
                       <p>{{question.hint}}</p>
-                      <p>Related sub-topic: <a href="#" data-ng-href="#/subtopic/{{question.subTopic.id}}" ng-bind="getSubTopic(question.subTopic.id)"></a></p>
+                      <p>Related sub-topic: <a href="#" data-ng-href="#!/subtopic/{{question.subTopic.id}}" ng-bind="getSubTopic(question.subTopic.id)"></a></p>
                     </div>
                   </div>
                 </div>
@@ -117,10 +117,10 @@
         </div>
         <div class="row related-items" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
           <div class="col-sm-5">
-            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+            <a data-ng-href="#!/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
           <div class="col-sm-7 recommended-item">
-            <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
+            <h6 class="unit-name"><a data-ng-href="#!/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
             <p>{{unit.description}}</p>
           </div>
         </div>
@@ -134,10 +134,10 @@
         </div>
         <div class="row related-items" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
           <div class="col-sm-5">
-            <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+            <a data-ng-href="#!/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
           <div class="col-sm-7 recommended-item">
-            <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>
+            <h6 class="unit-name" data-ng-cloak><a data-ng-href="#!/quiz/{{unit.id}}">{{unit.title}}</a></h6>
             <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
           </div>
 

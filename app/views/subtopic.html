@@ -21,7 +21,7 @@
           <a class="list-group-item" data-ng-href="#/subject/{{subject.id}}/quizzes">
             <i class="fa fa-question"></i> Quizzes <span class="badge" data-ng-model="numberOfQuizzes" data-ng-bind="numberOfQuizzes()"></span>
           </a>
-          <a data-ng-href="/#/subject/{{subject.id}}" class="list-group-item">
+          <a data-ng-href="/#!/subject/{{subject.id}}" class="list-group-item">
             <i class="fa fa-long-arrow-left"></i> {{subject.name}}
           </a>
           <a data-ng-if="getOngoingQuizId() != ''" data-ng-href="/#/quiz/{{getOngoingQuizId()}}" class="list-group-item">
@@ -46,8 +46,8 @@
         <div class="col-sm-12">
           <div id="bc1" class="btn-group btn-breadcrumb">
             <a href="#/home/" class="btn btn-default"><i class="fa fa-home"></i></a>
-            <a data-ng-href="#/subject/{{subject.id}}" class="btn btn-default" data-ng-bind="subject.name"><div></div></a>
-            <a data-ng-href="#/subtopic/{{subTopic.id}}" data-ng-bind="subTopic.name" class="btn btn-default"><div></div></a>
+            <a data-ng-href="#!/subject/{{subject.id}}" class="btn btn-default" data-ng-bind="subject.name"><div></div></a>
+            <a data-ng-href="#!/subtopic/{{subTopic.id}}" data-ng-bind="subTopic.name" class="btn btn-default"><div></div></a>
           </div>
         </div>
       </div>
@@ -89,10 +89,10 @@
         </div>
         <div class="row related-items" data-ng-repeat="unit in getRelatedCourseUnit() | orderBy: 'recommended'">
           <div class="col-sm-5">
-            <a data-ng-href="#/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+            <a data-ng-href="#!/subtopic/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
           </div>
           <div class="col-sm-7 recommended-item">
-            <h6 class="unit-name"><a data-ng-href="#/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
+            <h6 class="unit-name"><a data-ng-href="#!/subtopic/{{unit.id}}">{{unit.name}}</a></h6>
             <p>{{unit.description}}</p>
           </div>
         </div>
@@ -111,10 +111,10 @@
                       -->
                       <div class="row related-items" data-ng-repeat="unit in getRelatedQuizzes() | orderBy: 'recommended'">
                         <div class="col-sm-5">
-                          <a data-ng-href="#/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
+                          <a data-ng-href="#!/quiz/{{unit.id}}"><img class="img-responsive" src="/images/owl2.jpg" alt="Lazy Owl Image"></a>
                         </div>
                         <div class="col-sm-7 recommended-item">
-                          <h6 class="unit-name" data-ng-cloak><a data-ng-href="#/quiz/{{unit.id}}">{{unit.title}}</a></h6>
+                          <h6 class="unit-name" data-ng-cloak><a data-ng-href="#!/quiz/{{unit.id}}">{{unit.title}}</a></h6>
                           <p data-ng-cloak>Estimated time taken: {{2*unit.questions.length}} min</p>
                         </div>
 

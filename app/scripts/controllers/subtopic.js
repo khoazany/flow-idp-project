@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('idpApp')
-.controller('SubtopicCtrl', function ($scope,$rootScope,$routeParams,$location,disqusApi) {
+.controller('SubtopicCtrl', function ($scope,$rootScope,$routeParams,$location) {
 
   $scope.subTopic = $rootScope.subTopicList[$routeParams.id];
 

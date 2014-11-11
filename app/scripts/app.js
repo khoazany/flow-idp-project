@@ -18,11 +18,13 @@ angular.module('idpApp', [
   'ui.bootstrap',
   'countTo',
   'slick',
-  'ngDisqusApi'
+  
   ])
 .constant('angularMomentConfig', {
 })
-.config(function ($routeProvider,$validatorProvider,cfpLoadingBarProvider,$disqusApiProvider) {
+.config(function ($routeProvider,$validatorProvider,cfpLoadingBarProvider,$locationProvider) {
+  $locationProvider.hashPrefix('!');
+
   $routeProvider
   .when('/', {
     templateUrl: 'views/main.html',
@@ -64,13 +66,6 @@ angular.module('idpApp', [
 
   /* Config loadingbar */
   cfpLoadingBarProvider.latencyThreshold = 20;
-
-  /* Config Disqus */
-  // Set our API key for Disqus 
-  $disqusApiProvider.setApiKey('123456789');
-
-  // Set our forum name for Disqus 
-  $disqusApiProvider.setForumName('mycoolforum');
 })
 
 .run(function($rootScope,$sessionStorage,$location,ModalService,$validator) {
