@@ -87,6 +87,8 @@ $rootScope.$on('$locationChangeSuccess',function () {
 }
 });
 
+$rootScope.firstTime = true;
+
 /* Data */
 $rootScope.message = {
   status: '',

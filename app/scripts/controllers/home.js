@@ -11,8 +11,6 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
-  $scope.firstTime = true;
-
   $scope.studySubjects = [];
 
   /* Progress bar */
@@ -439,7 +437,8 @@ function click(d) {
         title: "Add New Deadline",
         content: "This is a special functionality to help you study for your exam.Add the time and topic covered " +
         "in your exam and the system will lead you to a diagnostic quiz to help you determine what is the items " +
-        "that you need to revise to do well in the exam."
+        "that you need to revise to do well in the exam.",
+        placement: "bottom"
       },
       {
         element: "#important-item-list",
@@ -449,14 +448,21 @@ function click(d) {
       }
       ],
       storage: false,
-      backdrop: true
+      backdrop: true,
+      onShow: function (tour) {
+        $rootScope.firstTime = false;
+        console.log($rootScope.firstTime);
+      },
     });
 
 // Initialize the tour
 tour.init();
 
-// Start the tour
+if($rootScope.firstTime) {
+  console.log($rootScope.firstTime);
+  // Start the tour
 tour.start(); 
+}
 
 });
 

@@ -166,3 +166,7 @@ img
   vertical-align: top;
 }
 
+.popover[class*=tour-] {
+  z-index: 9999;
+}
+
