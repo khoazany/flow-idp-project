@@ -168,24 +168,33 @@ $(document).ready(function() {
       "children": []
     };
     for(var k = 0;k < $scope.subject.topics[j].subTopics.length;k++) {
-      var temp3 = {};
-      temp3 = {
-        "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
-        "parent" : $scope.subject.topics[j].name,
-        "type" : "subtopic",
-        "idtemp" : $scope.subject.topics[j].subTopics[k].id
-      }
-      if($rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status == 1) {
-        temp3.name = $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name + ' (Done)';
-      }
-      var temp4 = {
-        "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title + ' (' + $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].submitted + ')',
-        "parent" : $scope.subject.topics[j].name,
-        "type" : "quiz",
-        "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id
-      }
-      temp2.children.push(temp3);
-      temp2.children.push(temp4);
+      var temp3 = {
+          "name": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].name,
+          "parent" : $scope.subject.topics[j].name,
+          "type" : "subtopic",
+          "idtemp" : $scope.subject.topics[j].subTopics[k].id,
+          "status": $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status,
+        }
+        if($scope.subject.topics[j].subTopics[k].id > 0 && $rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id-1].status == 1) {
+          temp3.future = true;
+        } else {
+          temp3.future = false;
+        }
+        temp2.children.push(temp3);
+
+        var temp4 = {
+          "name": $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].title,
+          "parent" : $scope.subject.topics[j].name,
+          "type" : "quiz",
+          "idtemp" : $scope.subject.topics[j].subTopics[k].quiz.id,
+          "submitted" : $rootScope.quizzes[$scope.subject.topics[j].subTopics[k].quiz.id].submitted
+        }
+        if($rootScope.subTopicList[$scope.subject.topics[j].subTopics[k].id].status == 1) {
+          temp4.future = true;
+        } else {
+          temp4.future = false;
+        }
+        temp2.children.push(temp4);
     }
     temp1.children.push(temp2);
   }
@@ -258,7 +267,39 @@ function update(source) {
 
   nodeUpdate.select("circle")
   .attr("r", 10)
-  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+  .style("fill", function(d) { 
+    console.log(d.type);
+    if(d.type == "subtopic") {
+      if(d.status == 1) {
+        return "#2ecc71";
+      } else { 
+        console.log(d.future);
+        if(d.future == true) {
+          return "#e74c3c";
+        } else {
+          return "#fff"
+        }
+      }
+    } else if(d.type == "quiz") {
+      if(d.submitted == 'Submitted') {
+        return "#2ecc71";
+      } else if(d.submitted == 'Ongoing') {
+        return "#f1c40f"
+      } else { 
+        console.log(d.future);
+        if(d.future == true) {
+          return "#e74c3c";
+        } else {
+          return "#fff"
+        }
+      }
+    }
+    if(d._children) {
+      return "lightsteelblue";
+    } else {
+      return "#fff";
+    }
+  });
 
   nodeUpdate.select("text")
   .style("fill-opacity", 1);

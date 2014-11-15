@@ -287,6 +287,8 @@ function update(source) {
     } else if(d.type == "quiz") {
       if(d.submitted == 'Submitted') {
         return "#2ecc71";
+      } else if(d.submitted == 'Ongoing') {
+        return "#f1c40f"
       } else { 
         console.log(d.future);
         if(d.future == true) {
