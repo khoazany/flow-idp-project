@@ -11,17 +11,17 @@ angular.module('idpApp')
     return "/views/footer.html";
   };
 
-  $scope.studySubjects = [];
-
   /* Progress bar */
   $scope.countFrom = 0;
 
   $scope.countTo = function (id) {
-    countCompleted = 0;
-    countTotal = 0;
+    console.log(id);
+    var countCompleted = 0;
+    var countTotal = 0;
     for (var i = 0;i < $rootScope.knowledgeTree[id].topics.length;i++) {
       for (var j = 0;j < $rootScope.knowledgeTree[id].topics[i].subTopics.length;j++) {
-        if($rootScope.knowledgeTree[id].topics[i].subTopics[j].status == 1) {
+        console.log($rootScope.subTopicList[$rootScope.knowledgeTree[id].topics[i].subTopics[j].id].status);
+        if($rootScope.subTopicList[$rootScope.knowledgeTree[id].topics[i].subTopics[j].id].status == 1) {
           countCompleted = countCompleted + 1;
         }
         if($rootScope.quizzes[$rootScope.knowledgeTree[id].topics[i].subTopics[j].quiz.id].submitted == 'Submitted') {

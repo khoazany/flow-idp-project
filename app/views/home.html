@@ -57,15 +57,15 @@
         DEADLINE ITEMS
         <button type="button" class="btn btn-default popular-subject active">All</button>
         <!-- Standard button -->
-        <button type="button" class="btn btn-default popular-subject" ng-animate="'repeated-item'" data-ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" data-ng-cloak>{{subject.name}}</button>
+        <button style="margin-right: 5px;" type="button" class="btn btn-default popular-subject" ng-animate="'repeated-item'" data-ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" data-ng-cloak>{{subject.name}}</button>
         <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
       </legend>
     </div>
   </div>
 
   <div class="row">
-    <slick slickSlider slides-to-show=3 slides-to-scroll=1>
-    <div class="item-to-show" data-ng-repeat="s in deadlineItems" style="display: inline-block; width: 20%; margin-right: 20px;">
+    <slick slickSlider slides-to-show=4 slides-to-scroll=1>
+      <div class="item-to-show" data-ng-repeat="s in deadlineItems" style="display: inline-block; width: 20%; margin-right: 20px;">
         <div data-ng-switch="s.name == undefined">
           <div data-ng-switch-when="true">
             <a data-ng-href="#!/quiz/{{s.id}}"><img src="/images/owl8.jpg"/></a>
@@ -96,14 +96,14 @@
         REGULAR STUDY ITEMS
         <button type="button" class="btn btn-default popular-subject active">All</button>
         <!-- Standard button -->
-        <button type="button" class="btn btn-default popular-subject" data-ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" data-ng-cloak>{{subject.name}}</button>
+        <button type="button" style="margin-right: 5px;" class="btn btn-default popular-subject" data-ng-repeat="subject in studySubjects | filter: {'eduLevel' : chosenLevel}" data-ng-cloak>{{subject.name}}</button>
         <input name="q" style="margin-bottom: 10px;" type="text" placeholder="Search..." />
       </legend>
     </div>
   </div>
 
   <div class="row">
-    <slick slickSlider slides-to-show=3 slides-to-scroll=1>
+    <slick slickSlider slides-to-show=4 slides-to-scroll=1>
       <div class="item-to-show" data-ng-repeat="s in getRegularItems() | orderBy: 'recommended'" style="display: inline-block; width: 20%; margin-right: 20px;">
         <div data-ng-switch="s.name == undefined">
           <div data-ng-switch-when="true">
@@ -150,20 +150,25 @@
             {{subject.description}}
           </p>
           <p>
-            <h5>Progress:</h5> <progressbar class="progress-striped active" animate="true" max="100" value="progressValue" type="success"><i><span count-to="{{countTo}}" duration="1" count-from="{{countFrom}}"></span> / 100</i></progressbar>
+            <h5>Progress:</h5>
+            <div class="progress">
+            <div class="progress-bar" data-ng-class="barColor(countTo(subject.id))" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="min-width:0px;" data-ng-style="{'width': countTo(subject.id) + '%'}">
+              <div style="color: black;" class="progresslabel">{{countTo(subject.id)}}%</div>
+              </div>
+          </div>
           </p>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-3" id="right-sidebar">
-    <div class="row" id="recommended-items-header">
-      <div class="col-sm-12">
-        <legend>
-          DEADLINES <div class="btn btn-info" ng-click="showAModal()">Add <span class="glyphicon glyphicon-plus"></span></div>
-        </legend>
-      </div>
     </div>
+    <div class="col-sm-3" id="right-sidebar">
+      <div class="row" id="recommended-items-header">
+        <div class="col-sm-12">
+          <legend>
+            DEADLINES <div class="btn btn-info" ng-click="showAModal()">Add <span class="glyphicon glyphicon-plus"></span></div>
+          </legend>
+        </div>
+      </div>
                         <!--
                         <div>
                           <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
@@ -187,7 +192,7 @@
                           <div class="row">
                             <div class="col-sm-12" data-ng-repeat="topic in d.topics">
                               <div class="progress" style="display: inline-block">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="0" style="min-width:30px;" data-ng-style="{'width': getProgressByTopic(topic) + '%'}">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="0" style="min-width:0px;" data-ng-style="{'width': getProgressByTopic(topic) + '%'}">
                                   <div class="progresslabel" style="color: black; font-size: 9px;">{{topic.name}} {{getProgressByTopic(topic)}}%</div><br>
                                 </div>
                               </div>
@@ -199,7 +204,7 @@
                         <div class="col-sm-12">
                           <label>Ready Level</label>
                           <div class="progress">
-                            <div class="progress-bar" data-ng-class="barColor(d.score)" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="min-width:10px;" data-ng-style="{'width': d.score + '%'}">
+                            <div class="progress-bar" data-ng-class="barColor(d.score)" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="min-width:0px;" data-ng-style="{'width': d.score + '%'}">
                               <div style="color: black;" class="progresslabel">{{d.score}}%</div><br>
                             </div>
                           </div>
